@@ -60,11 +60,19 @@ Actionで、行った処理を元に、`State`を更新します。
 
 # Develop
 
-# Pre
+## Pre
 
 ```
 $ npm install .
 ```
+
+## 開発/デバッグ環境の起動
+
+```
+$ npm run karma-dev
+```
+
+# Target scripts.
 
 ## Test (karma/mocha)
 

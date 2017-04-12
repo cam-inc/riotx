@@ -55,11 +55,19 @@ You can process and obtain the information of `State`.
 
 # Develop
 
-# Pre
+## Pre
 
 ```
 $ npm install .
 ```
+
+## Launch development / debugging environment
+
+```
+$ npm run karma-dev
+```
+
+# Target scripts.
 
 ## Test (karma/mocha)
 

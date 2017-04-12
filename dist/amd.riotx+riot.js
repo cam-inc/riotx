@@ -2817,6 +2817,7 @@ var RiotX = function RiotX() {
     init: function () {
       var self = this;
       this.on('unmount', function () {
+        // TODO unsubscribe
         self.off('*');
       });
 

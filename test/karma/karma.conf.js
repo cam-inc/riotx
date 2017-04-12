@@ -1,4 +1,10 @@
-const buble = require('rollup-plugin-buble');
+const
+  buble = require('rollup-plugin-buble')
+  banner = require('../../rollup.vars').banner,
+  intro = require('../../rollup.vars').intro;
+
+var debug = !!process.env.DEBUG ? true : false;
+
 
 module.exports = (config) => {
   config.set({
@@ -6,8 +12,8 @@ module.exports = (config) => {
     // client: { captureConsole: false },
     browsers: [
       'Chrome',
-      'Firefox',
-      'Safari'
+      // 'Firefox',
+      // 'Safari'
     ],
     browserConsoleLogOptions: {
       level: 'error',
@@ -17,10 +23,11 @@ module.exports = (config) => {
     colors: true,
     files: [
       '../../node_modules/riot/riot.js',
-      '../../dist/riotx.js',
-      'spec.js'
+      '../../src/index.js',
+      'spec.js',
+      'spec.tag',
     ],
-    frameworks: ['mocha', 'power-assert'],
+    frameworks: ['mocha', 'power-assert', 'riot'],
     logLevel: config.LOG_DEBUG,
     //logLevel: config.LOG_ERROR,
     plugins: [
@@ -31,26 +38,30 @@ module.exports = (config) => {
       'karma-chrome-launcher',
       'karma-firefox-launcher',
       'karma-safari-launcher',
-      'karma-coverage'
+      'karma-coverage',
+      'karma-riot'
     ],
     preprocessors: {
-      '../../dist/riotx.js': ['coverage'],
-      'spec.js': ['rollup']
+      '../../src/index.js': ['rollup', 'coverage'],
+      'spec.js': ['rollup'],
+      'spec.tag': ['riot'],
     },
     reporters: ['mocha', 'coverage'],
     rollupPreprocessor: {
       // context: 'this',
-      external: ['riot'],
       format: 'iife',
+      moduleName: 'riotx',
       globals: {
         riot: 'riot'
       },
+      banner: banner,
+      intro: intro,
+      external: ['riot'],
       plugins: [
         buble()
       ],
       sourceMap: false // 'inline'
     },
-    //singleRun: false,
-    singleRun: true,
+    singleRun: !debug,
   });
 };

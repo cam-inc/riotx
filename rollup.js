@@ -3,12 +3,9 @@ const
   buble = require('rollup-plugin-buble'),
   alias = require('rollup-plugin-alias'),
   riot = require('rollup-plugin-riot'),
-  package = require('./package.json');
-
-const
-  banner = '/* riotx version ' + package.version + ' */',
-  banner_bundle = '/* riotx version ' + package.version + ', riot version ' + package.devDependencies.riot + ' */',
-  intro = 'var VERSION = "' + package.version + '";';
+  banner = require('./rollup.vars').banner,
+  banner_bundle = require('./rollup.vars').banner_bundle,
+  intro = require('./rollup.vars').intro;
 
 
 // @see https://github.com/rollup/rollup/wiki/JavaScript-API

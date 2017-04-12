@@ -43,7 +43,7 @@ describe("riotx", () => {
   });
 
   it("add multi riotx.Store", () => {
-    riotx.stores =  {}; // TODO reset function...
+    riotx.stores = {}; // TODO reset function...
     riotx.add(new riotx.Store({name: "a", state: {}, actions: {}, mutations: {}, getters: {}}));
     try {
       riotx.add(new riotx.Store({name: "a", state: {}, actions: {}, mutations: {}, getters: {}}));
@@ -51,12 +51,51 @@ describe("riotx", () => {
     } catch (e) {
       assert(true);
     }
-    riotx.add(new riotx.Store({ name: "b", state: {}, actions: {}, mutations: {}, getters: {} }));
+    riotx.add(new riotx.Store({name: "b", state: {}, actions: {}, mutations: {}, getters: {}}));
     assert(riotx.get('a').name == 'a');
     assert(riotx.get('b').name == 'b');
     assert(Object.keys(riotx.stores).length == 2);
-
-
   });
+
+  it("mount spec.tag", () => {
+    let html = document.createElement('spec');
+    document.body.appendChild(html);
+
+
+    var store = new riotx.Store({
+      name: 'spec',
+      state: {
+        name: false,
+      },
+      actions: {
+        name: function (name, callback) {
+          this.commit('name', {name});
+          callback(null);
+        }
+      },
+      mutations: {
+        name: function (state, obj) {
+          state.name = obj.name;
+        }
+      },
+      getters: {
+        name: function (state) {
+          return state.name;
+        }
+      }
+    });
+
+    riotx.add(store);
+
+
+    var tag = riot.mount('spec', {
+      message: 'Welcome'
+    })[0];
+    assert(document.querySelector('spec > h1').textContent == 'Welcome');
+
+    assert(!!tag.riotx);
+    assert(tag.riotx.get("spec").name === "spec");
+
+  })
 });
 
