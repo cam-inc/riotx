@@ -18,11 +18,6 @@ Store
      └──────────────────────────────────────────────────────────────┘
 ```
 
-# TODO
-
-- [ ] import Promise library and Promise support 
-- [ ] import Object.assign library
-
 # Install
 
 ```

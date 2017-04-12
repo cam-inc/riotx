@@ -22,6 +22,8 @@ Store
 
 - [ ] import Promise library and Promise support 
 - [ ] import Object.assign library
+- [ ] reset riot.stores
+- [ ] riot.stores.length
 
 # Descriptions
 

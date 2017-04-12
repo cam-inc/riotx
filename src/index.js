@@ -100,6 +100,7 @@ class RiotX {
       init: function () {
         let self = this;
         this.on('unmount', function () {
+          // TODO unsubscribe
           self.off('*');
         });
 

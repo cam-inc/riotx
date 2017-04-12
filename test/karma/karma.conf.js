@@ -21,7 +21,7 @@ module.exports = (config) => {
       'spec.js'
     ],
     frameworks: ['mocha', 'power-assert'],
-    logLevel: 'LOG_DEBUG',
+    logLevel: config.LOG_DEBUG,
     //logLevel: config.LOG_ERROR,
     plugins: [
       'karma-rollup-plugin',
@@ -50,6 +50,7 @@ module.exports = (config) => {
       ],
       sourceMap: false // 'inline'
     },
-    singleRun: true
+    //singleRun: false,
+    singleRun: true,
   });
 };

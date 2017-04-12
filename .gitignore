@@ -40,3 +40,4 @@ jspm_packages
 *.iml
 
 test/requirejs/bower_components
+.DS_Store
