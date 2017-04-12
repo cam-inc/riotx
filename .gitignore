@@ -41,5 +41,7 @@ jspm_packages
 
 
 dist
-index.js
+/index.js
 lib
+
+test/requirejs/bower_components

@@ -26,7 +26,7 @@ let log = function() {
  * @type {{debug: boolean, default: string}}
  */
 let settings = {
-  debug: true,
+  debug: false,
   default: '@'
 };
 

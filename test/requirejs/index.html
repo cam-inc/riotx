@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+  <title>riotx on require.js</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+<body>
+<counter></counter>
+
+<script src="bower_components/requirejs/require.js"></script>
+
+<script type="riot/tag">
+  <counter>
+    <h3>counter</h3>
+    <input type="text" name="counter" value="{counter}" disabled>
+    <button onclick="{evCounter}">++</button>
+    <script>
+      var store = this.riotx.get()
+      this.counter = store.getters.counter(store.state);
+      var self = this;
+      store.on('counter', function(err, state, store) {
+        let res = store.getters.counter(state);
+        self.counter = res;
+        self.update();
+      });
+      this.evCounter = function () { // emit action
+        store.action('counter');
+      };
+  </counter>
+
+</script>
+
+<script>
+  require.config({
+    paths: {
+      'riot': 'bower_components/riot/riot+compiler',
+      'riotx': '../../dist/amd.riotx'
+    },
+    shim: {
+      'bower_components/riot/riot+compiler': {
+        exports: 'riot'
+      }
+    }
+  });
+
+  //  require(['bower_components/riot/riot+compiler'], function () {
+  require(['riot', 'riotx'], function (riot, riotx) {
+    window.riot = riot;
+    var store = new riotx.Store({
+      state: {
+        counter: 0,
+      },
+      actions: {
+        counter: function (callback) {
+          this.commit('counter');
+          callback(null);
+        }
+      },
+      mutations: {
+        counter: function (state) {
+          state.counter++;
+        }
+      },
+      getters: {
+        counter: function (state) {
+          return state.counter;
+        }
+      }
+    });
+
+    riotx.add(store);
+
+    riot.compile(function () {
+      riot.mount('*')
+    });
+  });
+
+</script>
+</body>
+
+</html>
