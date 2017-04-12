@@ -1,4 +1,4 @@
-[日本語 Japanese](README.ja.md)
+[English](README.md)
 
 # riotx
 
@@ -23,33 +23,45 @@ Store
 - [ ] import Promise library and Promise support 
 - [ ] import Object.assign library
 
+# Install
+
+```
+$ npm install --save riotx
+```
+
 # Descriptions
 
 ## Actions
 
-Write the logic.
-It does not update State.
+API通信などの非同期処理、各種ロジックはActionに実装します。
+
+すべての処理はActionを起点に始めてください。
+
 
 ## Mutations
 
-Update the State.
+Actionで、行った処理を元に、`State`を更新します。
+
+`State`の更新は、mutation だけで行ってください。
 
 ## State
 
-Manage data.
+状態(データ)を管理します。
+
+参照することは可能ですが、更新は `Mutations` からのみ行ってください。
 
 ## View Components
 
-It is a custom tag of `riot.js`.
+`riot.js` のカスタムタグです。
 
-> From within the tag, you can access `riotx` with` this.riotx`.
+> `this.riotx` で `riotx` にアクセス可能です。
 
 
 ## Getters
 
-You can process and obtain the information of `State`.
+`State` の情報を加工して取得することができます。
 
-`State` can not be rewritten.
+`State` の書き換えはできません。
 
 # Develop
 

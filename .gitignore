@@ -39,9 +39,4 @@ jspm_packages
 .idea/
 *.iml
 
-
-dist
-/index.js
-lib
-
 test/requirejs/bower_components
