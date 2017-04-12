@@ -1,4 +1,4 @@
-Test - Browserify
+Test - RequireJS
 
 # QuickStart
 
