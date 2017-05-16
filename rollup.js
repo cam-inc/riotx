@@ -3,10 +3,16 @@ const
   buble = require('rollup-plugin-buble'),
   alias = require('rollup-plugin-alias'),
   riot = require('rollup-plugin-riot'),
+  nodeResolve = require('rollup-plugin-node-resolve'),
+  commonjs = require('rollup-plugin-commonjs'),
   banner = require('./rollup.vars').banner,
   banner_bundle = require('./rollup.vars').banner_bundle,
   intro = require('./rollup.vars').intro;
 
+let namedExports = {
+  'node_modules/mout/array.js': [ 'forEach' ],
+  'node_modules/mout/object.js': [ 'keys' ],
+};
 
 // @see https://github.com/rollup/rollup/wiki/JavaScript-API
 
@@ -18,6 +24,15 @@ rollup.rollup({
       'riot': 'node_modules/riot/lib/riot.js',
       'riot-tmpl': 'node_modules/riot-tmpl/dist/es6.tmpl.js',
       'riot-observable': 'node_modules/riot-observable/dist/es6.observable.js',
+    }),
+    nodeResolve({
+      jsnext: true,
+      main: true,
+      browser: true
+    }),
+    commonjs({
+      include: 'node_modules/**',
+      namedExports: namedExports,
     }),
     buble()
   ]
@@ -45,6 +60,15 @@ rollup.rollup({
   entry: 'src/index.js',
   external: ['riot'],
   plugins: [
+    nodeResolve({
+      jsnext: true,
+      main: true,
+      browser: true
+    }),
+    commonjs({
+      include: 'node_modules/**',
+      namedExports: namedExports
+    }),
     buble()
   ]
 }).then(bundle => {
@@ -74,6 +98,15 @@ rollup.rollup({
   entry: 'src/index.js',
   external: ['riot'],
   plugins: [
+    nodeResolve({
+      jsnext: true,
+      main: true,
+      browser: true
+    }),
+    commonjs({
+      include: 'node_modules/**',
+      namedExports: namedExports
+    }),
     buble()
   ]
 }).then(bundle => {
@@ -92,8 +125,3 @@ rollup.rollup({
 }).catch(error => {
   console.error(error);
 });
-
-
-
-
-

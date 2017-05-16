@@ -6,9 +6,8 @@
     this.name = '';
     var store = this.riotx.get("spec");
     var self = this;
-    store.on("name", function (err, state, store) {
-      if (err) { throw err; }
-      var res = store.getters.name(state);
+    store.change("name", function (state, store) {
+      var res = store.getter('name');
       self.name = res;
       self.update();
     });

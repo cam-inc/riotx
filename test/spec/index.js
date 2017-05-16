@@ -8,18 +8,14 @@ describe('Server-side specs', function() {
     assert(riotx.version === package.version);
   });
 
-  it('change settings', function () {
-    assert(!riotx.settings.debug);
-    assert(riotx.settings.default === '@');
-
-    // edit
-    riotx.settings.debug = true;
-    riotx.settings.default = 'changed!';
-
-    assert(riotx.settings.debug);
-    assert(riotx.settings.default === 'changed!');
-
+  it("reset riotx", () => {
+    riotx.add(new riotx.Store({name: 'test', state: {test: true}, actions: {}, mutations: {}, getters: {}}));
+    assert(riotx.get('test').name === 'test');
+    assert(Object.keys(riotx.stores).length === 1);
+    riotx.reset();
+    assert(Object.keys(riotx.stores).length === 0);
   });
+
 
   it('mixin', function () {
     riot.tag('test-tag', '<p>{ message }</p>');

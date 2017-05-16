@@ -1,9 +1,17 @@
 const
-  buble = require('rollup-plugin-buble')
+  buble = require('rollup-plugin-buble'),
+  nodeResolve = require('rollup-plugin-node-resolve'),
+  commonjs = require('rollup-plugin-commonjs'),
   banner = require('../../rollup.vars').banner,
   intro = require('../../rollup.vars').intro;
 
 var debug = !!process.env.DEBUG ? true : false;
+
+
+let namedExports = {
+  'node_modules/mout/array.js': [ 'forEach' ],
+  'node_modules/mout/object.js': [ 'keys' ],
+};
 
 
 module.exports = (config) => {
@@ -58,6 +66,15 @@ module.exports = (config) => {
       intro: intro,
       external: ['riot'],
       plugins: [
+        nodeResolve({
+          jsnext: true,
+          main: true,
+          browser: true
+        }),
+        commonjs({
+          include: 'node_modules/**',
+          namedExports: namedExports
+        }),
         buble()
       ],
       sourceMap: false // 'inline'

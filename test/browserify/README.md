@@ -1,9 +1,21 @@
-Test - Browserify
+Browserify
+
+Operation test in Browserify environment.
 
 # QuickStart
 
+
+## build
+ 
 ```
 $ npm install .
 $ npm run build
-$ open index.html
+```
+
+## Operation
+
+Activate the browser and check the operation.
+
+```
+$ open index.html; # browser display output 'Successful' or 'Failure'.  
 ```

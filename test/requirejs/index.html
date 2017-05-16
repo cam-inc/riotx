@@ -16,10 +16,10 @@
     <button onclick="{evCounter}">++</button>
     <script>
       var store = this.riotx.get()
-      this.counter = store.getters.counter(store.state);
+      this.counter = store.getter('counter');
       var self = this;
-      store.on('counter', function(err, state, store) {
-        let res = store.getters.counter(state);
+      store.change('counter', function(state, store) {
+        let res = store.getter('counter');
         self.counter = res;
         self.update();
       });
@@ -51,24 +51,29 @@
         counter: 0,
       },
       actions: {
-        counter: function (callback) {
-          this.commit('counter');
-          callback(null);
+        counter: function (context) {
+          return Promise
+            .resolve()
+            .then(() => {
+              context.commit('counter');
+            });
         }
       },
       mutations: {
-        counter: function (state) {
-          state.counter++;
+        counter: function (context) {
+          context.state.counter++;
+          return ['counter'];
         }
       },
       getters: {
-        counter: function (state) {
-          return state.counter;
+        counter: function (context) {
+          return context.state.counter;
         }
       }
     });
 
     riotx.add(store);
+
 
     riot.compile(function () {
       riot.mount('*')

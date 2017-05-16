@@ -2,48 +2,65 @@ describe("riotx", () => {
   it("init", () => {
     assert(!!riot);
     assert(!!riotx);
-    assert(riotx.version != '');
+    assert(riotx.version !== '');
+  });
+
+  it("reset riotx", () => {
+    riotx.add(new riotx.Store({name: 'test', state: {test: true}, actions: {}, mutations: {}, getters: {}}));
+    assert(riotx.get('test').name === 'test');
+    assert(riotx.size() === 1);
+    riotx.reset();
+    assert(riotx.size() === 0);
   });
 
   it("add riotx.Store", (done) => {
-    riotx.settings.debug = true;
+    riotx.reset();
+    riotx.debug(true);
+
     var store = new riotx.Store({
       state: {
         test: false,
       },
       actions: {
-        test: function (callback) {
-          this.commit('test');
-          callback(null);
+        test: context => {
+          return Promise
+            .resolve()
+            .then(() => {
+              context.commit('test');
+            });
         }
       },
       mutations: {
-        test: function (state) {
-          state.test = true;
+        test: context => {
+          context.state.test = true;
+          return ['test'];
         }
       },
       getters: {
-        test: function (state) {
-          return state.test;
+        test: context => {
+          return context.state.test;
         }
       }
     });
 
     riotx.add(store);
 
-    assert(riotx.get().name == riotx.settings.default);
+    assert(riotx.get().name === '@');
     assert(!riotx.get().state.test);
-    riotx.get().on('test', (err, state, store) => {
-      let res = store.getters.test(state);
+
+
+    riotx.get().change('test', (state, store) => {
+      let res = store.getter('test');
       assert(res);
       done();
     });
 
-    riotx.get().action('test')
+    riotx.get().action('test'); // fire!
   });
 
   it("add multi riotx.Store", () => {
-    riotx.stores = {}; // TODO reset function...
+    riotx.reset();
+
     riotx.add(new riotx.Store({name: "a", state: {}, actions: {}, mutations: {}, getters: {}}));
     try {
       riotx.add(new riotx.Store({name: "a", state: {}, actions: {}, mutations: {}, getters: {}}));
@@ -54,7 +71,7 @@ describe("riotx", () => {
     riotx.add(new riotx.Store({name: "b", state: {}, actions: {}, mutations: {}, getters: {}}));
     assert(riotx.get('a').name == 'a');
     assert(riotx.get('b').name == 'b');
-    assert(Object.keys(riotx.stores).length == 2);
+    assert(riotx.size() == 2);
   });
 
   it("mount spec.tag", () => {
@@ -65,22 +82,26 @@ describe("riotx", () => {
     var store = new riotx.Store({
       name: 'spec',
       state: {
-        name: false,
+        name: "",
       },
       actions: {
-        name: function (name, callback) {
-          this.commit('name', {name});
-          callback(null);
+        name: (context, name) => {
+          return Promise
+            .resolve()
+            .then(() => {
+              context.commit('name', {name});
+            });
         }
       },
       mutations: {
-        name: function (state, obj) {
-          state.name = obj.name;
+        name: (context, obj) => {
+          context.state.name = obj.name;
+          return ['name'];
         }
       },
       getters: {
-        name: function (state) {
-          return state.name;
+        name: context => {
+          return context.state.name;
         }
       }
     });
