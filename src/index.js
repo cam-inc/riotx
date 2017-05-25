@@ -3,6 +3,7 @@
 import { forEach } from 'mout/array';
 import { keys } from 'mout/object';
 import ObjectAssign from 'object-assign';
+import Promise from 'promise-polyfill';
 import riot from 'riot';
 
 /**
