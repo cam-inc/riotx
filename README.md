@@ -198,7 +198,7 @@ $ npm run karma-dev
 ## Test (karma/mocha)
 
 ```
-$ npm run test
+$ npm test
 ```
 
 > `Chrome` on Machine. custom to `test/karma/karma.conf.js`
@@ -227,10 +227,4 @@ $ npm run watch
 
 ```
 $ npm run lint
-```
-
-## Watch
-
-```
-$ npm run watch
 ```
