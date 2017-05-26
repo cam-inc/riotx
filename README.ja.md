@@ -4,6 +4,8 @@
 
 Centralized State Management for riot.js
 
+Riotxは、riot.jsアプリケーション用の状態管理パターン+ライブラリです。
+
 ![riotx](art/riotx.png)
 
 # Install
