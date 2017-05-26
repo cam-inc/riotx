@@ -26,7 +26,7 @@ $ npm install --save riotx
     this.name = '';
     var store = this.riotx.get();
     var self = this;
-    
+
     store.change("name", function (state, store) {
       var res = store.getter('name');
       self.name = res;
@@ -131,7 +131,7 @@ Version取得
 
 複数ストアを登録することができます。
 
-@see `Store.name` 
+@see `Store.name`
 
 ### get(name='@'): Store
 
@@ -198,7 +198,7 @@ $ npm run karma-dev
 ## Test (karma/mocha)
 
 ```
-$ npm run test
+$ npm test
 ```
 
 > `Chrome` on Machine. custom to `test/karma/karma.conf.js`
@@ -208,13 +208,13 @@ $ npm run test
 [Read more](test/requirejs)
 
 ## Test (browserify)
- 
+
 [Read more](test/browserify)
 
 ## Build and minify
 
 ```
-$ npm run build 
+$ npm run build
 ```
 
 ## Watch
@@ -227,10 +227,4 @@ $ npm run watch
 
 ```
 $ npm run lint
-```
-
-## Watch
-
-```
-$ npm run watch
 ```
