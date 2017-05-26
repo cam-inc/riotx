@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "mout": "^1.0.0",
-    "object-assign": "^4.1.1"
+    "object-assign": "^4.1.1",
+    "promise-polyfill": "^6.0.2"
   }
 }

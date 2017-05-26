@@ -1,8 +1,9 @@
 'use strict';
 
-import { forEach } from 'mout/array';
-import { keys } from 'mout/object';
+import forEach from 'mout/array/forEach';
+import keys from 'mout/object/keys';
 import ObjectAssign from 'object-assign';
+import Promise from 'promise-polyfill';
 import riot from 'riot';
 
 /**
