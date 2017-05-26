@@ -2,7 +2,7 @@
 
 # riotx
 
-Centralized State Management for riot.js
+Riotx is a state management pattern + library for riot.js applications.
 
 ![riotx](art/riotx.png)
 
