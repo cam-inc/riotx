@@ -1,7 +1,7 @@
-/* riotx version 0.9.1 */
+/* riotx version 0.9.2 */
 define(['riot'], function (riot) { 'use strict';
 
-var VERSION = "0.9.1";
+var VERSION = "0.9.2";
 
 riot = 'default' in riot ? riot['default'] : riot;
 
