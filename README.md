@@ -76,6 +76,11 @@ riotx.add(store);
 
 > More example to `./test`
 
+# Demo
+
+| Sample | Codepen |
+| :--: | :--: |
+| Increment(counter) |(https://codepen.io/fkei/pen/ybmNqN)|
 
 # Descriptions
 
