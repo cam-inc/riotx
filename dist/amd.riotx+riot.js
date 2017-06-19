@@ -3339,7 +3339,8 @@ var riot$1 = extend({}, core, {
  */
 var settings$$1 = {
   debug: false,
-  default: '@'
+  default: '@',
+  changeBindName: 'riotxChange'
 };
 
 /**
@@ -3529,6 +3530,7 @@ var RiotX = function RiotX() {
         });
         delete this$1.riotx;
         delete this$1._riotx_change_handlers;
+        delete this$1[settings$$1.changeBindName];
       });
 
       if (settings$$1.debug) {
@@ -3536,21 +3538,22 @@ var RiotX = function RiotX() {
           log(eventName, this$1);
         });
       }
+
+      this[settings$$1.changeBindName] = function (store, evtName) {
+        var args = [], len = arguments.length - 2;
+        while ( len-- > 0 ) args[ len ] = arguments[ len + 2 ];
+
+        this$1._riotx_change_handlers.push({
+          store: store,
+          evtName: evtName
+        });
+        args.unshift(evtName);
+        store.on.apply(store, args);
+      };
     },
     // give each riot instance the ability to access the globally defined singleton RiotX instance.
     riotx: this,
-    _riotx_change_handlers: [],
-    rxChange: function (store, evtName) {
-      var args = [], len = arguments.length - 2;
-      while ( len-- > 0 ) args[ len ] = arguments[ len + 2 ];
-
-      this._riotx_change_handlers.push({
-        store: store,
-        evtName: evtName
-      });
-      args.unshift(evtName);
-      store.on.apply(store, args);
-    }
+    _riotx_change_handlers: []
   });
 };
 
@@ -3586,6 +3589,16 @@ RiotX.prototype.get = function get (name) {
  */
 RiotX.prototype.debug = function debug (flag) {
   settings$$1.debug = !!flag;
+  return this;
+};
+
+/**
+ * Set function name to bind store change event.
+ * @param {String} name
+ * @returns {RiotX}
+ */
+RiotX.prototype.setChangeBindName = function setChangeBindName (name) {
+  settings$$1.changeBindName = name;
   return this;
 };
 

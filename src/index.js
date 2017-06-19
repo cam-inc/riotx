@@ -12,7 +12,8 @@ import riot from 'riot';
  */
 const settings = {
   debug: false,
-  default: '@'
+  default: '@',
+  changeBindName: 'riotxChange'
 };
 
 /**
@@ -178,6 +179,7 @@ class RiotX {
           });
           delete this.riotx;
           delete this._riotx_change_handlers;
+          delete this[settings.changeBindName];
         });
 
         if (settings.debug) {
@@ -185,18 +187,19 @@ class RiotX {
             log(eventName, this);
           });
         }
+
+        this[settings.changeBindName] = (store, evtName, ...args) => {
+          this._riotx_change_handlers.push({
+            store,
+            evtName
+          });
+          args.unshift(evtName);
+          store.on(...args);
+        };
       },
       // give each riot instance the ability to access the globally defined singleton RiotX instance.
       riotx: this,
-      _riotx_change_handlers: [],
-      rxChange: function (store, evtName, ...args) {
-        this._riotx_change_handlers.push({
-          store,
-          evtName
-        });
-        args.unshift(evtName);
-        store.on(...args);
-      }
+      _riotx_change_handlers: []
     });
   }
 
@@ -230,6 +233,16 @@ class RiotX {
    */
   debug(flag) {
     settings.debug = !!flag;
+    return this;
+  }
+
+  /**
+   * Set function name to bind store change event.
+   * @param {String} name
+   * @returns {RiotX}
+   */
+  setChangeBindName(name) {
+    settings.changeBindName = name;
     return this;
   }
 

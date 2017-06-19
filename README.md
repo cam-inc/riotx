@@ -27,7 +27,7 @@ $ npm install --save riotx
     var store = this.riotx.get();
     var self = this;
 
-    store.change("name", function (state, store) {
+    this.riotxChange(store, "name", function (state, store) {
       var res = store.getter('name');
       self.name = res;
       self.update();
@@ -130,6 +130,10 @@ It is not allowed to mutate `State` through `Getters`.
 
 returns Version number.
 
+### setChangeBindName(name): riotX
+
+change the function name that is used to bind listeners for store change events.(default is `riotxChange`)
+
 ### add(store): Riotx
 
 register a store.
@@ -181,8 +185,6 @@ executes a getter.
 ### change(name, parameter...): null
 
 starts listening to change events.
-
-
 
 # Develop
 

@@ -16,6 +16,7 @@ describe("riotx", () => {
   it("add riotx.Store", (done) => {
     riotx.reset();
     riotx.debug(true);
+    riotx.setChangeBindName('change');
 
     var store = new riotx.Store({
       state: {
@@ -119,4 +120,3 @@ describe("riotx", () => {
 
   })
 });
-
