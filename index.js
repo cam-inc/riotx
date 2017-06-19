@@ -666,6 +666,11 @@ var RiotX = function RiotX() {
       // the context of `this` will be equal to riot tag instant.
       this.on('unmount', function () {
         this$1.off('*');
+        forEach_1(this$1._riotx_change_handlers, function (obj) {
+          obj.store.off(obj.evtName);
+        });
+        delete this$1.riotx;
+        delete this$1._riotx_change_handlers;
       });
 
       if (settings.debug) {
@@ -675,7 +680,19 @@ var RiotX = function RiotX() {
       }
     },
     // give each riot instance the ability to access the globally defined singleton RiotX instance.
-    riotx: this
+    riotx: this,
+    _riotx_change_handlers: [],
+    rxChange: function (store, evtName) {
+      var args = [], len = arguments.length - 2;
+      while ( len-- > 0 ) args[ len ] = arguments[ len + 2 ];
+
+      this._riotx_change_handlers.push({
+        store: store,
+        evtName: evtName
+      });
+      args.unshift(evtName);
+      store.on.apply(store, args);
+    }
   });
 };
 

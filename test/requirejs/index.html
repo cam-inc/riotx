@@ -14,17 +14,23 @@
     <h3>counter</h3>
     <input type="text" name="counter" value="{counter}" disabled>
     <button onclick="{evCounter}">++</button>
+    <button onclick="{evUnmount}">unmount</button>
     <script>
       var store = this.riotx.get()
+      window.riotx = this.riotx;
+      window.foo = this;
       this.counter = store.getter('counter');
       var self = this;
-      store.change('counter', function(state, store) {
+      this.rxChange(store, 'counter', function (state, store) {
         let res = store.getter('counter');
         self.counter = res;
         self.update();
       });
       this.evCounter = function () { // emit action
         store.action('counter');
+      };
+      this.evUnmount = function () {
+        self.trigger('unmount');
       };
   </counter>
 
