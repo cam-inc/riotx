@@ -166,6 +166,17 @@ class RiotX {
      */
     this.stores = {};
 
+    // add and keep event listener for store changes.
+    // through this function the event listeners will be unbinded automatically.
+    const riotxChange = function(store, evtName, ...args) {
+      this._riotx_change_handlers.push({
+        store,
+        evtName
+      });
+      args.unshift(evtName);
+      store.change(...args);
+    };
+
     // register a mixin globally.
     riot.mixin({
       // intendedly use `function`.
@@ -188,14 +199,8 @@ class RiotX {
           });
         }
 
-        this[settings.changeBindName] = (store, evtName, ...args) => {
-          this._riotx_change_handlers.push({
-            store,
-            evtName
-          });
-          args.unshift(evtName);
-          store.on(...args);
-        };
+        // let users set the name.
+        this[settings.changeBindName] = riotxChange;
       },
       // give each riot instance the ability to access the globally defined singleton RiotX instance.
       riotx: this,
