@@ -168,11 +168,13 @@ class RiotX {
 
     // add and keep event listener for store changes.
     // through this function the event listeners will be unbinded automatically.
-    const riotxChange = function(store, evtName, ...args) {
+    const riotxChange = function(store, evtName, handler, ...args) {
       this._riotx_change_handlers.push({
         store,
-        evtName
+        evtName,
+        handler
       });
+      args.unshift(handler);
       args.unshift(evtName);
       store.change(...args);
     };
@@ -186,7 +188,7 @@ class RiotX {
         this.on('unmount', () => {
           this.off('*');
           forEach(this._riotx_change_handlers, obj => {
-            obj.store.off(obj.evtName);
+            obj.store.off(obj.evtName, obj.handler);
           });
           delete this.riotx;
           delete this._riotx_change_handlers;
@@ -199,12 +201,12 @@ class RiotX {
           });
         }
 
+        this._riotx_change_handlers = [];
         // let users set the name.
         this[settings.changeBindName] = riotxChange;
       },
       // give each riot instance the ability to access the globally defined singleton RiotX instance.
-      riotx: this,
-      _riotx_change_handlers: []
+      riotx: this
     });
   }
 

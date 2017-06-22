@@ -1,6 +1,6 @@
 {
   "name": "riotx",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Centralized State Management for riot.js",
   "main": "index.js",
   "jsnext:main": "lib/index.js",

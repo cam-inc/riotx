@@ -1,7 +1,7 @@
-/* riotx version 0.9.3 */
+/* riotx version 0.9.4 */
 'use strict';
 
-var VERSION = "0.9.3";
+var VERSION = "0.9.4";
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
@@ -659,14 +659,16 @@ var RiotX = function RiotX() {
 
   // add and keep event listener for store changes.
   // through this function the event listeners will be unbinded automatically.
-  var riotxChange = function(store, evtName) {
-    var args = [], len = arguments.length - 2;
-    while ( len-- > 0 ) args[ len ] = arguments[ len + 2 ];
+  var riotxChange = function(store, evtName, handler) {
+    var args = [], len = arguments.length - 3;
+    while ( len-- > 0 ) args[ len ] = arguments[ len + 3 ];
 
     this._riotx_change_handlers.push({
       store: store,
-      evtName: evtName
+      evtName: evtName,
+      handler: handler
     });
+    args.unshift(handler);
     args.unshift(evtName);
     store.change.apply(store, args);
   };
@@ -682,7 +684,7 @@ var RiotX = function RiotX() {
       this.on('unmount', function () {
         this$1.off('*');
         forEach_1(this$1._riotx_change_handlers, function (obj) {
-          obj.store.off(obj.evtName);
+          obj.store.off(obj.evtName, obj.handler);
         });
         delete this$1.riotx;
         delete this$1._riotx_change_handlers;
@@ -695,12 +697,12 @@ var RiotX = function RiotX() {
         });
       }
 
+      this._riotx_change_handlers = [];
       // let users set the name.
       this[settings.changeBindName] = riotxChange;
     },
     // give each riot instance the ability to access the globally defined singleton RiotX instance.
-    riotx: this,
-    _riotx_change_handlers: []
+    riotx: this
   });
 };
 
