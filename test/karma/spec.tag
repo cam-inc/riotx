@@ -6,7 +6,7 @@
     this.name = '';
     var store = this.riotx.get("spec");
     var self = this;
-    store.change("name", function (state, store) {
+    this.change(store, "name", function (state, store) {
       var res = store.getter('name');
       self.name = res;
       self.update();

@@ -12,7 +12,8 @@ import riot from 'riot';
  */
 const settings = {
   debug: false,
-  default: '@'
+  default: '@',
+  changeBindName: 'riotxChange'
 };
 
 /**
@@ -165,6 +166,17 @@ class RiotX {
      */
     this.stores = {};
 
+    // add and keep event listener for store changes.
+    // through this function the event listeners will be unbinded automatically.
+    const riotxChange = function(store, evtName, ...args) {
+      this._riotx_change_handlers.push({
+        store,
+        evtName
+      });
+      args.unshift(evtName);
+      store.change(...args);
+    };
+
     // register a mixin globally.
     riot.mixin({
       // intendedly use `function`.
@@ -173,6 +185,12 @@ class RiotX {
         // the context of `this` will be equal to riot tag instant.
         this.on('unmount', () => {
           this.off('*');
+          forEach(this._riotx_change_handlers, obj => {
+            obj.store.off(obj.evtName);
+          });
+          delete this.riotx;
+          delete this._riotx_change_handlers;
+          delete this[settings.changeBindName];
         });
 
         if (settings.debug) {
@@ -180,9 +198,13 @@ class RiotX {
             log(eventName, this);
           });
         }
+
+        // let users set the name.
+        this[settings.changeBindName] = riotxChange;
       },
       // give each riot instance the ability to access the globally defined singleton RiotX instance.
-      riotx: this
+      riotx: this,
+      _riotx_change_handlers: []
     });
   }
 
@@ -216,6 +238,16 @@ class RiotX {
    */
   debug(flag) {
     settings.debug = !!flag;
+    return this;
+  }
+
+  /**
+   * Set function name to bind store change event.
+   * @param {String} name
+   * @returns {RiotX}
+   */
+  setChangeBindName(name) {
+    settings.changeBindName = name;
     return this;
   }
 

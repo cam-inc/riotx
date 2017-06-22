@@ -1,8 +1,8 @@
-/* riotx version 0.9.2 */
+/* riotx version 0.9.3 */
 var riotx = (function (riot) {
 'use strict';
 
-var VERSION = "0.9.2";
+var VERSION = "0.9.3";
 
 riot = 'default' in riot ? riot['default'] : riot;
 
@@ -480,7 +480,8 @@ var promise = createCommonjsModule(function (module) {
  */
 var settings = {
   debug: false,
-  default: '@'
+  default: '@',
+  changeBindName: 'riotxChange'
 };
 
 /**
@@ -655,6 +656,20 @@ var RiotX = function RiotX() {
    */
   this.stores = {};
 
+  // add and keep event listener for store changes.
+  // through this function the event listeners will be unbinded automatically.
+  var riotxChange = function(store, evtName) {
+    var args = [], len = arguments.length - 2;
+    while ( len-- > 0 ) args[ len ] = arguments[ len + 2 ];
+
+    this._riotx_change_handlers.push({
+      store: store,
+      evtName: evtName
+    });
+    args.unshift(evtName);
+    store.change.apply(store, args);
+  };
+
   // register a mixin globally.
   riot.mixin({
     // intendedly use `function`.
@@ -665,6 +680,12 @@ var RiotX = function RiotX() {
       // the context of `this` will be equal to riot tag instant.
       this.on('unmount', function () {
         this$1.off('*');
+        forEach_1(this$1._riotx_change_handlers, function (obj) {
+          obj.store.off(obj.evtName);
+        });
+        delete this$1.riotx;
+        delete this$1._riotx_change_handlers;
+        delete this$1[settings.changeBindName];
       });
 
       if (settings.debug) {
@@ -672,9 +693,13 @@ var RiotX = function RiotX() {
           log(eventName, this$1);
         });
       }
+
+      // let users set the name.
+      this[settings.changeBindName] = riotxChange;
     },
     // give each riot instance the ability to access the globally defined singleton RiotX instance.
-    riotx: this
+    riotx: this,
+    _riotx_change_handlers: []
   });
 };
 
@@ -710,6 +735,16 @@ RiotX.prototype.get = function get (name) {
  */
 RiotX.prototype.debug = function debug (flag) {
   settings.debug = !!flag;
+  return this;
+};
+
+/**
+ * Set function name to bind store change event.
+ * @param {String} name
+ * @returns {RiotX}
+ */
+RiotX.prototype.setChangeBindName = function setChangeBindName (name) {
+  settings.changeBindName = name;
   return this;
 };
 

@@ -1,7 +1,7 @@
 var riot  = require('riot');
 var riotx  = require('../../index');
 var assert = require('power-assert');
-var package = require('../../package.json')
+var package = require('../../package.json');
 
 describe('Server-side specs', function() {
   it('version', function () {

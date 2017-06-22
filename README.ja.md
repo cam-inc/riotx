@@ -27,7 +27,7 @@ $ npm install --save riotx
     var store = this.riotx.get();
     var self = this;
 
-    store.change("name", function (state, store) {
+    this.riotxChange(store, "name", function (state, store) {
       var res = store.getter('name');
       self.name = res;
       self.update();
@@ -130,6 +130,10 @@ Actionで、行った処理を元に、`State` を更新します。
 
 Version取得
 
+### setChangeBindName(name): riotX
+
+ストア監視用の関数名を設定します。(デフォルトは`riotxChange`)
+
 ### add(store): Riotx
 
 ストア登録
@@ -181,8 +185,6 @@ setting
 ### change(name, parameter...): null
 
 チェンジイベント監視を開始
-
-
 
 # Develop
 
