@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+  <title>riotx on require.js</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+<body>
+<counter></counter>
+
+<script src="bower_components/requirejs/require.js"></script>
+
+<script type="riot/tag">
+  <counter>
+    <h3>counter</h3>
+    <input type="text" name="counter" value="{counter}" disabled>
+    <button onclick="{evCounter}">++</button>
+    <button onclick="{evUnmount}">unmount</button>
+    <script>
+      var store = this.riotx.get();
+      this.counter = store.getter('counter');
+      var self = this;
+      this.change(store, 'counter', function (state, store) {
+        let res = store.getter('counter');
+        self.counter = res;
+        self.update();
+      });
+      this.evCounter = function () { // emit action
+        store.action('counter');
+      };
+      this.evUnmount = function () {
+        self.trigger('unmount');
+      };
+  </counter>
+
+</script>
+
+<script>
+  require.config({
+    paths: {
+      'riot': 'bower_components/riot/riot+compiler',
+      'riotx': '../../dist/amd.riotx'
+    },
+    shim: {
+      'bower_components/riot/riot+compiler': {
+        exports: 'riot'
+      }
+    }
+  });
+
+  //  require(['bower_components/riot/riot+compiler'], function () {
+  require(['riot', 'riotx'], function (riot, riotx) {
+    riotx.setChangeBindName('change');
+    window.riot = riot;
+    var store = new riotx.Store({
+      state: {
+        counter: 0,
+      },
+      actions: {
+        counter: function (context) {
+          return Promise
+            .resolve()
+            .then(() => {
+              context.commit('counter');
+            });
+        }
+      },
+      mutations: {
+        counter: function (context) {
+          context.state.counter++;
+          return ['counter'];
+        }
+      },
+      getters: {
+        counter: function (context) {
+          return context.state.counter;
+        }
+      }
+    });
+
+    riotx.add(store);
+
+
+    riot.compile(function () {
+      riot.mount('*')
+    });
+  });
+
+</script>
+</body>
+
+</html>

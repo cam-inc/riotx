@@ -1,10 +1,10 @@
-[日本語 Japanese](README.ja.md)
+[English](README.md)
 
 # riotx
 
 Centralized State Management for riot.js
 
-Riotx is a state management pattern + library for riot.js applications.
+Riotxは、riot.jsアプリケーション用の状態管理パターン+ライブラリです。
 
 ![riotx](art/riotx.png)
 
@@ -86,40 +86,40 @@ riotx.add(store);
 
 ## Riot(View) Components
 
-Custom tag of `riot.js`.
+`riot.js` のカスタムタグです。
 
-> Inside a component, you can access `riotx` through `this.riotx`.
+> Component内では、`this.riotx` で `riotx` にアクセス可能です。
 
 
 ## Actions
 
-Logics and asynchronous processing like calling API should be implemented in Actions.
+API通信などの非同期処理、各種ロジックはActionに実装します。
 
-Actions are entrypoints for riotx.
+riotxの処理は、Actionを起点に始めてください。
 
 
 ## Mutations
 
-`Mutations` mutate data in `State`.
+Actionで、行った処理を元に、`State` を更新します。
 
-`mutations` are the only way to update `State`.
+`State`の更新は、`mutation` でのみ行われます。
 
-You may need to trigger `change event` at the end of mutation.
+処理の後に、`change event` を発火することができます。
 
 ## State
 
-Manages data.
+状態(データ)を管理します。
 
-It is allowed to access `State` but you should always update `State` through `Mutations`.
+参照することは可能ですが、更新は `Mutations` からのみ行ってください。
 
-> Using `getter` you can get filtered data.
+> フィルター取得は `getter` で行うことが可能です。
 
 
 ## Getters
 
-You can get filtered data of `State`.
+`State` の情報を加工して取得することができます。
 
-It is not allowed to mutate `State` through `Getters`.
+`State` の書き換えはできません。
 
 
 # API
@@ -128,41 +128,41 @@ It is not allowed to mutate `State` through `Getters`.
 
 ### version: string
 
-returns Version number.
+Version取得
 
 ### setChangeBindName(name): riotX
 
-change the function name that is used to bind listeners for store change events.(default is `riotxChange`)
+ストア監視用の関数名を設定します。(デフォルトは`riotxChange`)
 
 ### add(store): Riotx
 
-register a store.
+ストア登録
 
-registering multiple stores is allowed.
+複数ストアを登録することができます。
 
 @see `Store.name`
 
 ### get(name='@'): Store
 
-returns a store.
+ストア取得
 
 ### debug(flag): Riotx
 
-returns the state of debugging mode. active or not.
+デバッグフラグ
 
 ### reset(): Riotx
 
-reset data.
+データリセット
 
 ### size(): int
 
-returns the total number of stores.
+管理ストア総数
 
 # Store
 
 ### constructor(setting): Riotx
 
-a store setting.
+ストア定義
 
 ```
 setting
@@ -176,15 +176,15 @@ setting
 
 ### action(name, parameter...): Promise
 
-executes an action.
+アクションを実行
 
 ### getter(name, parameter...): ...
 
-executes a getter.
+ゲッターを実行
 
 ### change(name, parameter...): null
 
-starts listening to change events.
+チェンジイベント監視を開始
 
 # Develop
 
@@ -194,7 +194,7 @@ starts listening to change events.
 $ npm install .
 ```
 
-## Launch Develop/Debug Environment.
+## 開発/デバッグ環境の起動
 
 ```
 $ npm run karma-dev
