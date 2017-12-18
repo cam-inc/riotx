@@ -4,6 +4,9 @@
 
 Centralized State Management for riot.js
 
+A Simplistic Central Event Controller / Dispatcher For RiotJS, Inspired By [vuex](https://github.com/vuejs/vuex) Architecture Pattern.
+
+
 Riotx is a state management pattern + library for riot.js applications.
 
 ![riotx](art/riotx.png)
