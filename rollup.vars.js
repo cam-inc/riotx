@@ -1,5 +1,4 @@
-const
-  package = require('./package.json');
+const package = require('./package.json');
 
 const
   banner = '/* riotx version ' + package.version + ' */',
