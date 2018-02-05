@@ -3,6 +3,7 @@
   <h2>Name: { name }</h2>
   <input ref="name" type="text" value="{ name }" onKeyUp="{evName}" autofocus>
   <script>
+    debugger;
     this.name = '';
     var store = this.riotx.get("spec");
     var self = this;

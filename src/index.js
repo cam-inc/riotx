@@ -1,4 +1,4 @@
-'use strict';
+/*global VERSION*/
 
 import forEach from 'mout/array/forEach';
 import keys from 'mout/object/keys';
@@ -87,7 +87,7 @@ class Store {
   getter(name, ...args) {
     log('[getter]', name, args);
     const context = {
-      state : ObjectAssign({}, this.state)
+      state: ObjectAssign({}, this.state)
     };
     return this._getters[name].apply(null, [context, ...args]);
   }
@@ -105,13 +105,13 @@ class Store {
       getter: (name, ...args) => {
         return this.getter.apply(this, [name, ...args]);
       },
-      state : _state
+      state: _state
     };
     const triggers = this._mutations[name].apply(null, [context, ...args]);
     log('[commit(after)]', name, _state, ...args);
     ObjectAssign(this.state, _state);
 
-    forEach(triggers, (v) => {
+    forEach(triggers, v => {
       // this.trigger(v, null, this.state, this);
       this.trigger(v, this.state, this);
     });
@@ -181,7 +181,7 @@ class RiotX {
     riot.mixin({
       // intendedly use `function`.
       // switch the context of `this` from `riotx` to `riot tag instance`.
-      init: function () {
+      init: function() {
         // the context of `this` will be equal to riot tag instant.
         this.on('unmount', () => {
           this.off('*');

@@ -41,3 +41,5 @@ jspm_packages
 
 test/requirejs/bower_components
 .DS_Store
+
+package-lock.json

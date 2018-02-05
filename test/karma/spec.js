@@ -1,11 +1,14 @@
-describe("riotx", () => {
-  it("init", () => {
+/* global  assert, riot, riotx */
+/* eslint-env browser, node */
+
+describe('riotx', () => {
+  it('init', () => {
     assert(!!riot);
     assert(!!riotx);
     assert(riotx.version !== '');
   });
 
-  it("reset riotx", () => {
+  it('reset riotx', () => {
     riotx.add(new riotx.Store({name: 'test', state: {test: true}, actions: {}, mutations: {}, getters: {}}));
     assert(riotx.get('test').name === 'test');
     assert(riotx.size() === 1);
@@ -13,7 +16,7 @@ describe("riotx", () => {
     assert(riotx.size() === 0);
   });
 
-  it("add riotx.Store", (done) => {
+  it('add riotx.Store', done => {
     riotx.reset();
     riotx.debug(true);
     riotx.setChangeBindName('change');
@@ -59,31 +62,30 @@ describe("riotx", () => {
     riotx.get().action('test'); // fire!
   });
 
-  it("add multi riotx.Store", () => {
+  it('add multi riotx.Store', () => {
     riotx.reset();
 
-    riotx.add(new riotx.Store({name: "a", state: {}, actions: {}, mutations: {}, getters: {}}));
+    riotx.add(new riotx.Store({name: 'a', state: {}, actions: {}, mutations: {}, getters: {}}));
     try {
-      riotx.add(new riotx.Store({name: "a", state: {}, actions: {}, mutations: {}, getters: {}}));
+      riotx.add(new riotx.Store({name: 'a', state: {}, actions: {}, mutations: {}, getters: {}}));
       assert(false);
     } catch (e) {
       assert(true);
     }
-    riotx.add(new riotx.Store({name: "b", state: {}, actions: {}, mutations: {}, getters: {}}));
-    assert(riotx.get('a').name == 'a');
-    assert(riotx.get('b').name == 'b');
-    assert(riotx.size() == 2);
+    riotx.add(new riotx.Store({name: 'b', state: {}, actions: {}, mutations: {}, getters: {}}));
+    assert(riotx.get('a').name === 'a');
+    assert(riotx.get('b').name === 'b');
+    assert(riotx.size() === 2);
   });
 
-  it("mount spec.tag", () => {
+  it('mount spec.tag', () => {
     let html = document.createElement('spec');
     document.body.appendChild(html);
-
 
     var store = new riotx.Store({
       name: 'spec',
       state: {
-        name: "",
+        name: '',
       },
       actions: {
         name: (context, name) => {
@@ -113,10 +115,10 @@ describe("riotx", () => {
     var tag = riot.mount('spec', {
       message: 'Welcome'
     })[0];
-    assert(document.querySelector('spec > h1').textContent == 'Welcome');
+    assert(document.querySelector('spec > h1').textContent === 'Welcome');
 
     assert(!!tag.riotx);
-    assert(tag.riotx.get("spec").name === "spec");
+    assert(tag.riotx.get('spec').name === 'spec');
 
-  })
+  });
 });
