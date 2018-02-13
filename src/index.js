@@ -91,7 +91,19 @@ class Store {
      */
     this._getters = _store.getters;
 
+    /**
+     * functions to plugins.
+     * @type {Array}
+     */
+    this._plugins = _store.plugins;
+
     riot.observable(this);
+
+    // Load plugins.
+    forEach(this._plugins, p => {
+      p.apply(null, [this]);
+    });
+
   }
 
   /**
@@ -123,6 +135,10 @@ class Store {
     };
     const triggers = this._mutations[name].apply(null, [context, ...args]);
     log('[commit(after)]', name, this._state, ...args);
+
+    // Plugins
+    this.trigger('riotx:mutations:after', name, triggers, context, ...args);
+
     forEach(triggers, v => {
       // this.trigger(v, null, this.state, this);
       this.trigger(v, this._state, this);

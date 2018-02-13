@@ -67,7 +67,8 @@ let store = new riotx.Store({
     name: context => {
       return context.state.name;
     }
-  }
+  },
+  plugins: [ /** ... */ ]
 });
 
 riotx.add(store);
@@ -121,6 +122,59 @@ Actionで、行った処理を元に、`State` を更新します。
 
 `State` の書き換えはできません。
 
+## Plugins
+
+`riotx` へのフックを可能にします。
+
+### Support
+
+- すべての `mutations` の実行後にフックされます。 Event name : `riotx:mutations:after`
+
+
+```javascript 1.8
+const store = new riotx.Store({
+  state: {
+    hello: 'Hello',
+  },
+  actions: {
+    testAction: (context, text) => {
+      return Promise
+        .resolve()
+        .then(() => {
+          context.commit('testMutation', text);
+        });
+    }
+  },
+  mutations: {
+    testMutation: (context, text) => {
+      context.state.hello = `${context.state.hello} ${text}`;
+      return ['testChangeMutation'];
+    }
+  },
+  getters: {
+    testGetter: context => {
+      return context.state.hello;
+    }
+  },
+  plugins: [
+    store => {
+      store.change('riotx:mutations:after', (name, targets, context, ...args) => {
+        if (name === 'testMutation' && targets.includes('testChangeMutation')) {
+          context.state.hello = `Override ${context.state.hello}`;
+        }
+      });
+    },
+  ]
+});
+riotx.add(store);
+
+store.change('testChangeMutation', (state, store) => {
+  let res = store.getter('testGetter');
+  assert.equal(res, 'Override Hello World');
+});
+const text = 'World';
+store.action('testAction', text);
+```
 
 # API
 
@@ -188,7 +242,7 @@ setting
 
 ゲッターを実行
 
-### change(name, parameter...): null
+### riotxChange(name, parameter...): null
 
 チェンジイベント監視を開始
 

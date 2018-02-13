@@ -10,8 +10,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "npm run karma && npm run mocha",
-    "build": "npm run rollup && npm run minify",
+    "test": "npm run build && npm run karma && npm run mocha",
+    "build": "npm run lint && npm run rollup && npm run minify",
     "rollup": "node rollup.js",
     "watch": "chokidar src/* -c 'npm run build'",
     "minify": "npm run uglify && npm run uglify-amd && npm run uglify-bundle && npm run uglify-amd-bundle",

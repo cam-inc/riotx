@@ -1,15 +1,17 @@
 <!doctype html>
 <html>
+
 <head>
   <title>riotx on require.js</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 </head>
+
 <body>
-<counter></counter>
+  <counter></counter>
 
-<script src="bower_components/requirejs/require.js"></script>
+  <script src="bower_components/requirejs/require.js"></script>
 
-<script type="riot/tag">
+  <script type="riot/tag">
   <counter>
     <h3>counter</h3>
     <input type="text" name="counter" value="{counter}" disabled>
@@ -17,15 +19,15 @@
     <button onclick="{evUnmount}">unmount</button>
     <script>
       var store = this.riotx.get();
-      this.counter = store.getter('counter');
+      this.counter = store.getter('counterGetter');
       var self = this;
-      this.change(store, 'counter', function (state, store) {
-        let res = store.getter('counter');
+      this.change(store, 'counterChangeMutation', function (state, store) {
+        let res = store.getter('counterGetter');
         self.counter = res;
         self.update();
       });
       this.evCounter = function () { // emit action
-        store.action('counter');
+        store.action('counterAction');
       };
       this.evUnmount = function () {
         self.trigger('unmount');
@@ -34,61 +36,70 @@
 
 </script>
 
-<script>
-  require.config({
-    paths: {
-      'riot': 'bower_components/riot/riot+compiler',
-      'riotx': '../../dist/amd.riotx'
-    },
-    shim: {
-      'bower_components/riot/riot+compiler': {
-        exports: 'riot'
-      }
-    }
-  });
-
-  //  require(['bower_components/riot/riot+compiler'], function () {
-  require(['riot', 'riotx'], function (riot, riotx) {
-    riotx.setChangeBindName('change');
-    riotx.debug(true);
-    riotx.strict(true);
-
-    window.riot = riot;
-    var store = new riotx.Store({
-      state: {
-        counter: 0,
+  <script>
+    require.config({
+      paths: {
+        'riot': 'bower_components/riot/riot+compiler',
+        'riotx': '../../dist/amd.riotx'
       },
-      actions: {
-        counter: function (context) {
-          return Promise
-            .resolve()
-            .then(() => {
-              context.commit('counter');
+      shim: {
+        'bower_components/riot/riot+compiler': {
+          exports: 'riot'
+        }
+      }
+    });
+
+    //  require(['bower_components/riot/riot+compiler'], function () {
+    require(['riot', 'riotx'], function (riot, riotx) {
+      riotx.setChangeBindName('change');
+      riotx.debug(true);
+      riotx.strict(true);
+
+      window.riot = riot;
+      var store = new riotx.Store({
+        state: {
+          counter: 0,
+        },
+        actions: {
+          counterAction: function (context) {
+            return Promise
+              .resolve()
+              .then(() => {
+                context.commit('counterMutation');
+              });
+          }
+        },
+        mutations: {
+          counterMutation: function (context) {
+            context.state.counter++;
+            return ['counterChangeMutation'];
+          }
+        },
+        getters: {
+          counterGetter: function (context) {
+            return context.state.counter;
+          }
+        },
+        //       reset() { // TODO
+        //   this.off('*');
+        // }
+        plugins: [
+          function (store) {
+            store.change('riotx:mutations:after', function (name, targets, context, ...args) {
+              console.log('[plugin] success', context.state);
             });
-        }
-      },
-      mutations: {
-        counter: function (context) {
-          context.state.counter++;
-          return ['counter'];
-        }
-      },
-      getters: {
-        counter: function (context) {
-          return context.state.counter;
-        }
-      }
+          },
+        ]
+      });
+
+      riotx.add(store);
+
+      riot.compile(function () {
+        riot.mount('*')
+      });
     });
 
-    riotx.add(store);
-
-
-    riot.compile(function () {
-      riot.mount('*')
-    });
-  });
-
-</script>
+  </script>
 </body>
 
 </html>

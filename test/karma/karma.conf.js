@@ -34,6 +34,7 @@ module.exports = config => {
     files: [
       '../../node_modules/riot/riot.js',
       '../../src/index.js',
+      '../spec/index.js',
       'spec.js',
       'spec.tag',
     ],
@@ -55,6 +56,7 @@ module.exports = config => {
     preprocessors: {
       '../../src/index.js': ['rollup', 'coverage'],
       'spec.js': ['rollup'],
+      '../spec/index.js': ['rollup'],
       'spec.tag': ['riot'],
     },
     reporters: ['mocha', 'coverage'],
