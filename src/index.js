@@ -211,7 +211,7 @@ class RiotX {
 
         if (settings.debug) {
           this.on('*', eventName => {
-            log(eventName, this);
+            log('[riot.mixin]', eventName, this);
           });
         }
 
