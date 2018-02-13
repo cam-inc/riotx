@@ -1,3 +1,5 @@
+/* eslint-env node, mocha */
+
 const
   buble = require('rollup-plugin-buble'),
   nodeResolve = require('rollup-plugin-node-resolve'),
@@ -5,7 +7,7 @@ const
   banner = require('../../rollup.vars').banner,
   intro = require('../../rollup.vars').intro;
 
-var debug = !!process.env.DEBUG ? true : false;
+var debug = !!process.env.DEBUG;
 
 
 let namedExports = {
@@ -14,7 +16,7 @@ let namedExports = {
 };
 
 
-module.exports = (config) => {
+module.exports = config => {
   config.set({
     autoWatch: true,
     // client: { captureConsole: false },
@@ -39,7 +41,8 @@ module.exports = (config) => {
     logLevel: config.LOG_DEBUG,
     //logLevel: config.LOG_ERROR,
     plugins: [
-      'karma-rollup-plugin',
+      //'karma-rollup-plugin',
+      'karma-rollup-preprocessor',
       'karma-mocha',
       'karma-mocha-reporter',
       'karma-power-assert',

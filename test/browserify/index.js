@@ -1,3 +1,4 @@
+/*global window, require, document*/
 var riot = require('riot');
 var riotx = require('riotx');
 
@@ -8,7 +9,7 @@ if (window) {
 }
 
 if (riot && riotx) {
-  document.getElementById("result").innerText ='Successful';
+  document.getElementById('result').innerText ='Successful';
 } else {
-  document.getElementById("result").innerText ='Failure';
+  document.getElementById('result').innerText ='Failure';
 }
