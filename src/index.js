@@ -13,7 +13,8 @@ import riot from 'riot';
 const settings = {
   debug: false,
   default: '@',
-  changeBindName: 'riotxChange'
+  changeBindName: 'riotxChange',
+  strict: false
 };
 
 /**
@@ -52,7 +53,22 @@ class Store {
      * a object that represents full application state.
      * @type {Object}
      */
-    this.state = ObjectAssign({}, _store.state);
+    this._state = ObjectAssign({}, _store.state);
+    Object.defineProperty(this, 'state', {
+      get: () => {
+        if (settings.strict) {
+          throw new Error('[riotx] [strict] Direct access get error.');
+        }
+        return this._state;
+      },
+      set: state => {
+
+        if (settings.strict) {
+          throw new Error(`[riotx] [strict] Direct access set error. ${state}`);
+        }
+        this._state = state;
+      }
+    });
 
     /**
      * functions to mutate application state.
@@ -87,7 +103,7 @@ class Store {
   getter(name, ...args) {
     log('[getter]', name, args);
     const context = {
-      state: ObjectAssign({}, this.state)
+      state: ObjectAssign({}, this._state)
     };
     return this._getters[name].apply(null, [context, ...args]);
   }
@@ -99,7 +115,7 @@ class Store {
    * @param {...*} args
    */
   commit(name, ...args) {
-    const _state = ObjectAssign({}, this.state);
+    const _state = ObjectAssign({}, this._state);
     log('[commit(before)]', name, _state, ...args);
     const context = {
       getter: (name, ...args) => {
@@ -109,11 +125,11 @@ class Store {
     };
     const triggers = this._mutations[name].apply(null, [context, ...args]);
     log('[commit(after)]', name, _state, ...args);
-    ObjectAssign(this.state, _state);
+    ObjectAssign(this._state, _state);
 
     forEach(triggers, v => {
       // this.trigger(v, null, this.state, this);
-      this.trigger(v, this.state, this);
+      this.trigger(v, this._state, this);
     });
   }
 
@@ -131,7 +147,7 @@ class Store {
       getter: (name, ...args) => {
         return this.getter.apply(this, [name, ...args]);
       },
-      state: ObjectAssign({}, this.state),
+      state: ObjectAssign({}, this._state),
       commit: (...args) => {
         this.commit(...args);
       }
@@ -233,7 +249,7 @@ class RiotX {
 
   /**
    * Set debug flag
-   * @param flag
+   * @param {boolean} flag
    * @returns {RiotX}
    */
   debug(flag) {
@@ -248,6 +264,17 @@ class RiotX {
    */
   setChangeBindName(name) {
     settings.changeBindName = name;
+    return this;
+  }
+
+  /**
+   * Directly changing the state property from outside will occur an exception.
+   * You can change it through “mutations”, or you can get it via “getters”.
+   * @param {boolean} flag
+   * @returns {RiotX}
+   */
+  strict(flag) {
+    settings.strict = !!flag;
     return this;
   }
 

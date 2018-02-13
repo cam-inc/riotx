@@ -121,4 +121,17 @@ describe('riotx', () => {
     assert(tag.riotx.get('spec').name === 'spec');
 
   });
+
+  it('strict mode', () => {
+    riotx.reset();
+    riotx.strict(true);
+    riotx.debug(true);
+    riotx.add(new riotx.Store({name: 'test', state: {test: true}, actions: {}, mutations: {}, getters: {}}));
+    try {
+      const state = riotx.stores.test.state;
+      assert.fail(`strict mode not working. ${state}`);
+    } catch (e) {
+      assert.ok('strict mode is working.');
+    }
+  });
 });

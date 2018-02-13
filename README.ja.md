@@ -150,6 +150,12 @@ Version取得
 
 デバッグフラグ
 
+### strict(flag): Riotx
+
+外部から直接 state の取得、変更を行うと例外が発生します。
+
+変更は`mutations`、取得は、`getters` から行うことをを強制します。
+
 ### reset(): Riotx
 
 データリセット

@@ -460,7 +460,8 @@ Promise._unhandledRejectionFn = function _unhandledRejectionFn(err) {
 var settings = {
   debug: false,
   default: '@',
-  changeBindName: 'riotxChange'
+  changeBindName: 'riotxChange',
+  strict: false
 };
 
 /**
@@ -484,6 +485,8 @@ var log = function () {
 
 
 var Store = function Store(_store) {
+  var this$1 = this;
+
   /**
    * name of the store.
    * @type {String}
@@ -498,7 +501,22 @@ var Store = function Store(_store) {
    * a object that represents full application state.
    * @type {Object}
    */
-  this.state = objectAssign({}, _store.state);
+  this._state = objectAssign({}, _store.state);
+  Object.defineProperty(this, 'state', {
+    get: function () {
+      if (settings.strict) {
+        throw new Error('[riotx] [strict] Direct access get error.');
+      }
+      return this$1._state;
+    },
+    set: function (state) {
+
+      if (settings.strict) {
+        throw new Error(("[riotx] [strict] Direct access set error. " + state));
+      }
+      this$1._state = state;
+    }
+  });
 
   /**
    * functions to mutate application state.
@@ -536,7 +554,7 @@ Store.prototype.getter = function getter (name) {
 
   log('[getter]', name, args);
   var context = {
-    state: objectAssign({}, this.state)
+    state: objectAssign({}, this._state)
   };
   return this._getters[name].apply(null, [context ].concat( args));
 };
@@ -552,7 +570,7 @@ Store.prototype.commit = function commit (name) {
     var args = [], len = arguments.length - 1;
     while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
 
-  var _state = objectAssign({}, this.state);
+  var _state = objectAssign({}, this._state);
   log.apply(void 0, [ '[commit(before)]', name, _state ].concat( args ));
   var context = {
     getter: function (name) {
@@ -565,11 +583,11 @@ Store.prototype.commit = function commit (name) {
   };
   var triggers = this._mutations[name].apply(null, [context ].concat( args));
   log.apply(void 0, [ '[commit(after)]', name, _state ].concat( args ));
-  objectAssign(this.state, _state);
+  objectAssign(this._state, _state);
 
   forEach_1(triggers, function (v) {
     // this.trigger(v, null, this.state, this);
-    this$1.trigger(v, this$1.state, this$1);
+    this$1.trigger(v, this$1._state, this$1);
   });
 };
 
@@ -594,7 +612,7 @@ Store.prototype.action = function action (name) {
 
       return this$1.getter.apply(this$1, [name ].concat( args));
     },
-    state: objectAssign({}, this.state),
+    state: objectAssign({}, this._state),
     commit: function () {
         var args = [], len = arguments.length;
         while ( len-- ) args[ len ] = arguments[ len ];
@@ -724,6 +742,11 @@ RiotX.prototype.debug = function debug (flag) {
  */
 RiotX.prototype.setChangeBindName = function setChangeBindName (name) {
   settings.changeBindName = name;
+  return this;
+};
+
+RiotX.prototype.strict = function strict (flag) {
+  settings.strict = !!flag;
   return this;
 };
 
