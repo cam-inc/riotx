@@ -62,10 +62,10 @@
     "rollup-plugin-node-resolve": "^3.0.2",
     "rollup-plugin-riot": "^2.0.0",
     "slash": "^1.0.0",
-    "uglify-js": "^3.3.9"
+    "uglify-js": "^3.3.9",
+    "karma-rollup-preprocessor": "^5.1.1"
   },
   "dependencies": {
-    "karma-rollup-preprocessor": "^5.1.1",
     "mout": "^1.1.0",
     "object-assign": "^4.1.1",
     "promise-polyfill": "^7.0.2"
