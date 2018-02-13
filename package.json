@@ -18,7 +18,8 @@
     "lint": "eslint ./src/**/*",
     "karma": "karma start test/karma/karma.conf.js",
     "karma-dev": "DEBUG=1 karma start test/karma/karma.conf.js",
-    "mocha": "npm run rollup; mocha test/spec/*.js",
+    "mocha": "mocha test/spec/*.js",
+    "mocha-dev": "npm run rollup; mocha test/spec/*.js",
     "uglify": "uglifyjs dist/riotx.js --comments --mangle -o dist/riotx.min.js",
     "uglify-bundle": "uglifyjs dist/riotx+riot.js --comments --mangle -o dist/riotx+riot.min.js",
     "uglify-amd": "uglifyjs dist/amd.riotx.js --comments --mangle -o dist/amd.riotx.min.js",
@@ -61,10 +62,10 @@
     "rollup-plugin-node-resolve": "^3.0.2",
     "rollup-plugin-riot": "^2.0.0",
     "slash": "^1.0.0",
-    "uglify-js": "^3.3.9"
+    "uglify-js": "^3.3.9",
+    "karma-rollup-preprocessor": "^5.1.1"
   },
   "dependencies": {
-    "karma-rollup-preprocessor": "^5.1.1",
     "mout": "^1.1.0",
     "object-assign": "^4.1.1",
     "promise-polyfill": "^7.0.2"

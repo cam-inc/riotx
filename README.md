@@ -153,6 +153,11 @@ returns a store.
 
 returns the state of debugging mode. active or not.
 
+### strict(flag): Riotx
+
+Directly changing the state property from outside will occur an exception.
+You can change it through “mutations”, or you can get it via “getters”.
+
 ### reset(): Riotx
 
 reset data.
