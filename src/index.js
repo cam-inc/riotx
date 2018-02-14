@@ -2,7 +2,6 @@
 
 import forEach from 'mout/array/forEach';
 import keys from 'mout/object/keys';
-import ObjectAssign from 'object-assign';
 import Promise from 'promise-polyfill';
 import riot from 'riot';
 
@@ -53,7 +52,7 @@ class Store {
      * a object that represents full application state.
      * @type {Object}
      */
-    this._state = ObjectAssign({}, _store.state);
+    this._state = _store.state;
     Object.defineProperty(this, 'state', {
       get: () => {
         if (settings.strict) {
@@ -74,7 +73,7 @@ class Store {
      * functions to mutate application state.
      * @type {Object}
      */
-    this._actions = ObjectAssign({}, _store.actions);
+    this._actions = _store.actions;
 
     /**
      * mutaions.
@@ -84,15 +83,27 @@ class Store {
      * `obj` will be TODO.
      * @type {Object}
      */
-    this._mutations = ObjectAssign({}, _store.mutations);
+    this._mutations = _store.mutations;
 
     /**
      * functions to get data from states.
      * @type {Object}
      */
-    this._getters = ObjectAssign({}, _store.getters);
+    this._getters = _store.getters;
+
+    /**
+     * functions to plugins.
+     * @type {Array}
+     */
+    this._plugins = _store.plugins;
 
     riot.observable(this);
+
+    // Load plugins.
+    forEach(this._plugins, p => {
+      p.apply(null, [this]);
+    });
+
   }
 
   /**
@@ -103,7 +114,7 @@ class Store {
   getter(name, ...args) {
     log('[getter]', name, args);
     const context = {
-      state: ObjectAssign({}, this._state)
+      state: this._state
     };
     return this._getters[name].apply(null, [context, ...args]);
   }
@@ -115,17 +126,18 @@ class Store {
    * @param {...*} args
    */
   commit(name, ...args) {
-    const _state = ObjectAssign({}, this._state);
-    log('[commit(before)]', name, _state, ...args);
+    log('[commit(before)]', name, this._state, ...args);
     const context = {
       getter: (name, ...args) => {
         return this.getter.apply(this, [name, ...args]);
       },
-      state: _state
+      state: this._state
     };
     const triggers = this._mutations[name].apply(null, [context, ...args]);
-    log('[commit(after)]', name, _state, ...args);
-    ObjectAssign(this._state, _state);
+    log('[commit(after)]', name, this._state, ...args);
+
+    // Plugins
+    this.trigger('riotx:mutations:after', name, triggers, context, ...args);
 
     forEach(triggers, v => {
       // this.trigger(v, null, this.state, this);
@@ -147,7 +159,7 @@ class Store {
       getter: (name, ...args) => {
         return this.getter.apply(this, [name, ...args]);
       },
-      state: ObjectAssign({}, this._state),
+      //state: this._state,
       commit: (...args) => {
         this.commit(...args);
       }
@@ -164,6 +176,7 @@ class Store {
   change(...args) {
     this.on(...args);
   }
+
 }
 
 class RiotX {
@@ -211,7 +224,7 @@ class RiotX {
 
         if (settings.debug) {
           this.on('*', eventName => {
-            log(eventName, this);
+            log('[riot.mixin]', eventName, this);
           });
         }
 

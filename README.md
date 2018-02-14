@@ -70,7 +70,8 @@ let store = new riotx.Store({
     name: context => {
       return context.state.name;
     }
-  }
+  },
+  plugins: [ /** ... */ ]
 });
 
 riotx.add(store);
@@ -124,6 +125,60 @@ You can get filtered data of `State`.
 
 It is not allowed to mutate `State` through `Getters`.
 
+
+## Plugins
+
+Enable hook to `riotx`.
+
+### Support
+
+- It will be hooked after running all `mutations`. Event name : `riotx:mutations:after`
+
+
+```javascript 1.8
+const store = new riotx.Store({
+  state: {
+    hello: 'Hello',
+  },
+  actions: {
+    testAction: (context, text) => {
+      return Promise
+        .resolve()
+        .then(() => {
+          context.commit('testMutation', text);
+        });
+    }
+  },
+  mutations: {
+    testMutation: (context, text) => {
+      context.state.hello = `${context.state.hello} ${text}`;
+      return ['testChangeMutation'];
+    }
+  },
+  getters: {
+    testGetter: context => {
+      return context.state.hello;
+    }
+  },
+  plugins: [
+    store => {
+      store.change('riotx:mutations:after', (name, targets, context, ...args) => {
+        if (name === 'testMutation' && targets.includes('testChangeMutation')) {
+          context.state.hello = `Override ${context.state.hello}`;
+        }
+      });
+    },
+  ]
+});
+riotx.add(store);
+
+store.change('testChangeMutation', (state, store) => {
+  let res = store.getter('testGetter');
+  assert.equal(res, 'Override Hello World');
+});
+const text = 'World';
+store.action('testAction', text);
+```
 
 # API
 
@@ -190,7 +245,7 @@ executes an action.
 
 executes a getter.
 
-### change(name, parameter...): null
+### riotxChange(name, parameter...): null
 
 starts listening to change events.
 
