@@ -2,6 +2,7 @@
 
 import forEach from 'mout/array/forEach';
 import keys from 'mout/object/keys';
+import isFunction from 'mout/lang/isFunction';
 import Promise from 'promise-polyfill';
 import riot from 'riot';
 
@@ -35,7 +36,7 @@ const log = (...args) => {
 
 class Store {
   /**
-   * @param { name: 'Store Name', state: { default state data }, actions: { TODO } mutations: { TODO }, getters: { TODO } }
+   * @param { name: 'Store Name', state: { default state data }, actions: { functions... } mutations: { functions... }, getters: { functions... }, plugins: { functions... } }
    */
   constructor(_store) {
     /**
@@ -79,8 +80,6 @@ class Store {
      * mutaions.
      * mutaion = a function which mutates the state.
      * all mutation functions take two parameters which are `state` and `obj`.
-     * `state` will be TODO.
-     * `obj` will be TODO.
      * @type {Object}
      */
     this._mutations = _store.mutations;
@@ -101,22 +100,30 @@ class Store {
 
     // Load plugins.
     forEach(this._plugins, p => {
+      if (!isFunction(p)) {
+        throw new Error('[riotx] [plugin] The plugin is not a function.');
+      }
       p.apply(null, [this]);
+
     });
 
   }
 
   /**
    * Getter state
-   * @param {String} name TODO
+   * @param {String} name
    * @param {...*} args
    */
   getter(name, ...args) {
-    log('[getter]', name, args);
     const context = {
       state: this._state
     };
-    return this._getters[name].apply(null, [context, ...args]);
+    const fn = this._getters[name];
+    if (!fn || !isFunction(fn)) {
+      throw new Error(`[riotx] [getter]', 'The getter is not a function. name=${name} args=${args}`);
+    }
+    log('[getter]', name, args);
+    return fn.apply(null, [context, ...args]);
   }
 
   /**
@@ -126,15 +133,21 @@ class Store {
    * @param {...*} args
    */
   commit(name, ...args) {
-    log('[commit(before)]', name, this._state, ...args);
     const context = {
       getter: (name, ...args) => {
         return this.getter.apply(this, [name, ...args]);
       },
       state: this._state
     };
-    const triggers = this._mutations[name].apply(null, [context, ...args]);
-    log('[commit(after)]', name, this._state, ...args);
+
+    const fn = this._mutations[name];
+    if (!fn || !isFunction(fn)) {
+      throw new Error(`[riotx] [mutation]', 'The mutation is not a function. name=${name} args=${args}`);
+    }
+
+    log('[mutation(before)]', name, this._state, ...args);
+    const triggers = fn.apply(null, [context, ...args]);
+    log('[mutation(after)]', name, this._state, ...args);
 
     // Plugins
     this.trigger('riotx:mutations:after', name, triggers, context, ...args);
@@ -153,8 +166,6 @@ class Store {
    * @return {Promise}
    */
   action(name, ...args) {
-    log('[action]', name, args);
-
     const context = {
       getter: (name, ...args) => {
         return this.getter.apply(this, [name, ...args]);
@@ -164,9 +175,16 @@ class Store {
         this.commit(...args);
       }
     };
+
+    const fn = this._actions[name];
+    if (!fn || !isFunction(fn)) {
+      throw new Error(`[riotx] [action]', 'The action is not a function. name=${name} args=${args}`);
+    }
+
+    log('[action]', name, args);
     return Promise
       .resolve()
-      .then(() => this._actions[name].apply(null, [context, ...args]));
+      .then(() => fn.apply(null, [context, ...args]));
   }
 
   /**
@@ -197,7 +215,7 @@ class RiotX {
 
     // add and keep event listener for store changes.
     // through this function the event listeners will be unbinded automatically.
-    const riotxChange = function(store, evtName, ...args) {
+    const riotxChange = function (store, evtName, ...args) {
       this._riotx_change_handlers.push({
         store,
         evtName
@@ -210,7 +228,7 @@ class RiotX {
     riot.mixin({
       // intendedly use `function`.
       // switch the context of `this` from `riotx` to `riot tag instance`.
-      init: function() {
+      init: function () {
         // the context of `this` will be equal to riot tag instant.
         this.on('unmount', () => {
           this.off('*');
