@@ -15,7 +15,7 @@
     "rollup": "node rollup.js",
     "watch": "chokidar src/* -c 'npm run build'",
     "minify": "npm run uglify && npm run uglify-amd && npm run uglify-bundle && npm run uglify-amd-bundle",
-    "lint": "eslint ./src/**/*",
+    "lint": "eslint ./src/**/* ./test/spec/* ./test/browserify/index.js ./test/karma/spec.js",
     "karma": "karma start test/karma/karma.conf.js",
     "karma-dev": "DEBUG=1 karma start test/karma/karma.conf.js",
     "mocha": "mocha test/spec/*.js",

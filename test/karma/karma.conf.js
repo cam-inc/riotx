@@ -22,8 +22,8 @@ module.exports = config => {
     // client: { captureConsole: false },
     browsers: [
       'Chrome',
-      // 'Firefox',
-      // 'Safari'
+      //'Firefox',
+      //'Safari'
     ],
     browserConsoleLogOptions: {
       level: 'error',

@@ -18,7 +18,7 @@ if (typeof window === 'undefined') {
 if (typeof window === 'undefined') {
   describe('server-side specs', () => {
     it('version', () => {
-      assert(riotx.version === version);
+      assert(riotx.version === version); // eslint-disable-line block-scoped-var
     });
   });
 }
@@ -31,7 +31,15 @@ describe('client-side specs', () => {
   });
 
   it('reset riotx', () => {
-    riotx.add(new riotx.Store({ name: 'test', state: { test: true }, actions: {}, mutations: {}, getters: {} }));
+    riotx.add(new riotx.Store({
+      name: 'test',
+      state: {
+        test: true
+      },
+      actions: {},
+      mutations: {},
+      getters: {}
+    }));
     assert(riotx.get('test').name === 'test');
     assert(Object.keys(riotx.stores).length === 1);
     riotx.reset();
@@ -92,14 +100,32 @@ describe('client-side specs', () => {
   it('add multi riotx.Store', () => {
     riotx.reset();
 
-    riotx.add(new riotx.Store({name: 'a', state: {}, actions: {}, mutations: {}, getters: {}}));
+    riotx.add(new riotx.Store({
+      name: 'a',
+      state: {},
+      actions: {},
+      mutations: {},
+      getters: {}
+    }));
     try {
-      riotx.add(new riotx.Store({name: 'a', state: {}, actions: {}, mutations: {}, getters: {}}));
+      riotx.add(new riotx.Store({
+        name: 'a',
+        state: {},
+        actions: {},
+        mutations: {},
+        getters: {}
+      }));
       assert(false);
     } catch (e) {
       assert(true);
     }
-    riotx.add(new riotx.Store({name: 'b', state: {}, actions: {}, mutations: {}, getters: {}}));
+    riotx.add(new riotx.Store({
+      name: 'b',
+      state: {},
+      actions: {},
+      mutations: {},
+      getters: {}
+    }));
     assert(riotx.get('a').name === 'a');
     assert(riotx.get('b').name === 'b');
     assert(riotx.size() === 2);
@@ -108,7 +134,15 @@ describe('client-side specs', () => {
   it('strict mode', () => {
     riotx.reset();
     riotx.strict(true);
-    riotx.add(new riotx.Store({ name: 'test', state: { test: true }, actions: {}, mutations: {}, getters: {} }));
+    riotx.add(new riotx.Store({
+      name: 'test',
+      state: {
+        test: true
+      },
+      actions: {},
+      mutations: {},
+      getters: {}
+    }));
     try {
       const state = riotx.stores.test.state;
       assert.fail(`strict mode not working. ${state}`);
@@ -120,6 +154,7 @@ describe('client-side specs', () => {
   it('plugins', () => {
     riotx.reset();
     riotx.strict(true);
+
     const store = new riotx.Store({
       state: {
         hello: 'Hello',
@@ -146,7 +181,7 @@ describe('client-side specs', () => {
       },
       plugins: [
         store => {
-          store.change('riotx:mutations:after', (name, targets, context, ...args) => {
+          store.change('riotx:mutations:after', (name, targets, context, ...args) => { // eslint-disable-line no-unused-vars
             if (name === 'testMutation' && targets.includes('testChangeMutation')) {
               context.state.hello = `Override ${context.state.hello}`;
             }
@@ -164,4 +199,43 @@ describe('client-side specs', () => {
     store.action('testAction', text);
   });
 
+  it('Checking plugin, action, mutation and getter definition (function)', () => {
+    riotx.reset();
+    riotx.strict(true);
+
+    assert.throws(() => {
+      new riotx.Store({
+        state: {},
+        actions: {},
+        mutations: {},
+        getters: {},
+        plugins: [
+          '...'
+        ]
+      });
+    }, Error);
+
+    const store = new riotx.Store({
+      state: {},
+      actions: {
+        testAction: '...'
+      },
+      mutations: {
+        testMutation: '...'
+      },
+      getters: {
+        testGetter: '...'
+      },
+      plugins: []
+    });
+
+    riotx.add(store);
+    assert.throws(() => store.action('testAction'), Error);
+    assert.throws(() => store.commit('testMutation'), Error);
+    assert.throws(() => store.getter('testGetter'), Error);
+    assert.throws(() => store.action('empty'), Error);
+    assert.throws(() => store.commit('empty'), Error);
+    assert.throws(() => store.getter('empty'), Error);
+
+  });
 });
