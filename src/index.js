@@ -3,6 +3,7 @@
 import forEach from 'mout/array/forEach';
 import keys from 'mout/object/keys';
 import isFunction from 'mout/lang/isFunction';
+import isObject from 'mout/lang/isObject';
 import Promise from 'promise-polyfill';
 import riot from 'riot';
 
@@ -112,45 +113,51 @@ class Store {
   /**
    * Getter state
    * @param {String} name
-   * @param {...*} args
+   * @param {Object} data
    */
-  getter(name, ...args) {
+  getter(name, data) {
+    if (data && !isObject(data)) {
+      throw new Error(`[riotx] [getter]', 'The getter data is not object type. name=${name} data=${data}`);
+    }
     const context = {
       state: this._state
     };
     const fn = this._getters[name];
     if (!fn || !isFunction(fn)) {
-      throw new Error(`[riotx] [getter]', 'The getter is not a function. name=${name} args=${args}`);
+      throw new Error(`[riotx] [getter]', 'The getter is not a function. name=${name} data=${data}`);
     }
-    log('[getter]', name, args);
-    return fn.apply(null, [context, ...args]);
+    log('[getter]', name, data);
+    return fn.apply(null, [context, data]);
   }
 
   /**
    * Commit mutation.
    * only actions are allowed to execute this function.
    * @param {String} name mutation name
-   * @param {...*} args
+   * @param {Object} data
    */
-  commit(name, ...args) {
+  commit(name, data) {
+    if (data && !isObject(data)) {
+      throw new Error(`[riotx] [mutation]', 'The mutation data is not object type. name=${name} data=${data}`);
+    }
     const context = {
-      getter: (name, ...args) => {
-        return this.getter.apply(this, [name, ...args]);
+      getter: (name, data) => {
+        return this.getter.apply(this, [name, data]);
       },
       state: this._state
     };
 
     const fn = this._mutations[name];
     if (!fn || !isFunction(fn)) {
-      throw new Error(`[riotx] [mutation]', 'The mutation is not a function. name=${name} args=${args}`);
+      throw new Error(`[riotx] [mutation]', 'The mutation is not a function. name=${name} data=${data}`);
     }
 
-    log('[mutation(before)]', name, this._state, ...args);
-    const triggers = fn.apply(null, [context, ...args]);
-    log('[mutation(after)]', name, this._state, ...args);
+    log('[mutation(before)]', name, this._state, data);
+    const triggers = fn.apply(null, [context, data]);
+    log('[mutation(after)]', name, this._state, data);
 
     // Plugins
-    this.trigger('riotx:mutations:after', name, triggers, context, ...args);
+    this.trigger('riotx:mutations:after', name, triggers, context, data);
 
     forEach(triggers, v => {
       // this.trigger(v, null, this.state, this);
@@ -162,29 +169,32 @@ class Store {
    * emit action.
    * only ui components are allowed to execute this function.
    * @param {Stting} name action name
-   * @param {...*} args parameter's to action
+   * @param {Object} data parameter's to action
    * @return {Promise}
    */
-  action(name, ...args) {
+  action(name, data) {
+    if (data && !isObject(data)) {
+      throw new Error(`[riotx] [action]', 'The action data is not object type. name=${name} data=${data}`);
+    }
     const context = {
-      getter: (name, ...args) => {
-        return this.getter.apply(this, [name, ...args]);
+      getter: (name, data) => {
+        return this.getter.apply(this, [name, data]);
       },
       //state: this._state,
-      commit: (...args) => {
-        this.commit(...args);
+      commit: (name, data) => {
+        this.commit(name, data);
       }
     };
 
     const fn = this._actions[name];
     if (!fn || !isFunction(fn)) {
-      throw new Error(`[riotx] [action]', 'The action is not a function. name=${name} args=${args}`);
+      throw new Error(`[riotx] [action]', 'The action is not a function. name=${name} data=${data}`);
     }
 
-    log('[action]', name, args);
+    log('[action]', name, data);
     return Promise
       .resolve()
-      .then(() => fn.apply(null, [context, ...args]));
+      .then(() => fn.apply(null, [context, data]));
   }
 
   /**
