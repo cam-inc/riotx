@@ -1,7 +1,7 @@
-/* riotx version 0.9.4, riot version ^3.5.1 */
+/* riotx version 1.0.0, riot version ^3.5.1 */
 define(function () { 'use strict';
 
-var VERSION = "0.9.4";
+var VERSION = "1.0.0";
 
 /**
      * Array forEach

@@ -1,8 +1,8 @@
-/* riotx version 0.9.4 */
+/* riotx version 1.0.0 */
 var riotx = (function (riot) {
 'use strict';
 
-var VERSION = "0.9.4";
+var VERSION = "1.0.0";
 
 riot = 'default' in riot ? riot['default'] : riot;
 
