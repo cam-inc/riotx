@@ -13,17 +13,17 @@ describe('browser-side specs', () => {
         name: '',
       },
       actions: {
-        name: (context, name) => {
+        name: (context, data) => {
           return Promise
             .resolve()
             .then(() => {
-              context.commit('name', {name});
+              context.commit('name', data);
             });
         }
       },
       mutations: {
-        name: (context, obj) => {
-          context.state.name = obj.name;
+        name: (context, data) => {
+          context.state.name = data.name;
           return ['name'];
         }
       },

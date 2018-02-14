@@ -15,6 +15,10 @@ if (typeof window === 'undefined') {
   assert = window.assert;
 }
 
+
+riotx.strict(true);
+
+
 if (typeof window === 'undefined') {
   describe('server-side specs', () => {
     it('version', () => {
@@ -50,31 +54,31 @@ describe('client-side specs', () => {
     riot.tag('test-tag', '<p>{ message }</p>');
   });
 
-  it('add riotx.Store', done => {
+  it('basic new Store()', done => {
     riotx.reset();
     riotx.setChangeBindName('change');
 
     var store = new riotx.Store({
       state: {
-        test: false,
+        text: '',
       },
       actions: {
-        test: context => {
+        testAction: context => {
           return Promise
             .resolve()
             .then(() => {
-              context.commit('test');
+              context.commit('testMutation');
             });
         }
       },
       mutations: {
-        test: context => {
+        testMutation: context => {
           context.state.test = true;
-          return ['test'];
+          return ['testChangeMutation'];
         }
       },
       getters: {
-        test: context => {
+        testGetter: context => {
           return context.state.test;
         }
       }
@@ -88,13 +92,13 @@ describe('client-side specs', () => {
     riotx.strict(true);
 
 
-    riotx.get().change('test', (state, store) => {
-      let res = store.getter('test');
+    riotx.get().change('testChangeMutation', (state, store) => {
+      let res = store.getter('testGetter');
       assert(res);
       done();
     });
 
-    riotx.get().action('test'); // fire!
+    riotx.get().action('testAction'); // fire!
   });
 
   it('add multi riotx.Store', () => {
@@ -160,17 +164,17 @@ describe('client-side specs', () => {
         hello: 'Hello',
       },
       actions: {
-        testAction: (context, text) => {
+        testAction: (context, data) => {
           return Promise
             .resolve()
             .then(() => {
-              context.commit('testMutation', text);
+              context.commit('testMutation', data);
             });
         }
       },
       mutations: {
-        testMutation: (context, text) => {
-          context.state.hello = `${context.state.hello} ${text}`;
+        testMutation: (context, data) => {
+          context.state.hello = `${context.state.hello} ${data.text}`;
           return ['testChangeMutation'];
         }
       },
@@ -181,7 +185,7 @@ describe('client-side specs', () => {
       },
       plugins: [
         store => {
-          store.change('riotx:mutations:after', (name, targets, context, ...args) => { // eslint-disable-line no-unused-vars
+          store.change('riotx:mutations:after', (name, targets, context, data) => { // eslint-disable-line no-unused-vars
             if (name === 'testMutation' && targets.includes('testChangeMutation')) {
               context.state.hello = `Override ${context.state.hello}`;
             }
@@ -196,7 +200,9 @@ describe('client-side specs', () => {
       assert.equal(res, 'Override Hello World');
     });
     const text = 'World';
-    store.action('testAction', text);
+    store.action('testAction', {
+      text: text
+    });
   });
 
   it('Checking plugin, action, mutation and getter definition (function)', () => {
@@ -238,4 +244,92 @@ describe('client-side specs', () => {
     assert.throws(() => store.getter('empty'), Error);
 
   });
+
+  it('Unify the arguments to Getter, Action Mutation and Plugin.', () => {
+    riotx.reset();
+    riotx.strict(true);
+
+    const store = new riotx.Store({
+      state: {
+        text: 'Hello'
+      },
+      /**
+       * - sayGetter/sayAppendSuffixGetter Getter name.
+       * @param {Object} context Information provided by `riotx` to `Getter`.
+       * - context.state Store.state object
+       * @param {Object} data Data from this caller.
+       */
+      getters: {
+        sayGetter: context => {
+          return context.state.text;
+        },
+        sayAppendSuffixGetter: (context, data) => {
+          return `${context.state.text} ${data.text}`;
+        }
+      },
+      /**
+       * - sayAction Action name.
+       * @param {Object} context Information provided by `riotx` to `Action`.
+       * - context.getter Store.getter shortcut
+       * - context.commit Data to carry to Mutation.
+       * @param {Object} data Data from this caller.
+       */
+      actions: {
+        sayAction: (context, data) => {
+          context.commit('sayMutation', data);
+        }
+      },
+      /**
+       * - sayMutation Mutation name.
+       * @param {Object} context Information provided by `riotx` to `Mutation`.
+       * - context.getter Store.getter shortcut
+       * - context.state Store.state object
+       * @param {Object} data Data from this caller. (from action)
+       * @return {Array} The name of the subscriber who wants to let you catch fire.
+       */
+      mutations: {
+        sayMutation: (context, data) => {
+          const text = `${context.getter('sayGetter')} ${data.text}`;
+          context.state.text = text;
+          return ['sayChangeMutation'];
+        }
+      },
+      plugins: [
+        /**
+         * @param {Object} store Store instance.
+         */
+        store => {
+          /**
+           * - plugin subscriber
+           * @param {String} name It will be hooked after running all `mutations`.
+           * Event name : `riotx:mutations:after`
+           * @param {Array} triggers Subscriber list
+           * @param {Object} context Information provided by `riotx` to  `Mutation`.
+           * - context.getter Store.getter shortcut
+           * - context.state Store.state object
+           */
+          store.change('riotx:mutations:after', (name, targets, context, data) => { // eslint-disable-line no-unused-vars
+            if (name === 'sayMutation' && targets.includes('sayChangeMutation')) {
+              context.state.text = `Override ${context.state.text}`;
+            }
+          });
+        },
+      ]
+    });
+
+    riotx.add(store);
+
+    store.change('sayChangeMutation', (state, store) => {
+      const text = store.getter('sayAppendSuffixGetter', {
+        text: ':)'
+      });
+      assert.equal(text, 'Override Hello World :)');
+      assert(store);
+    });
+
+    store.action('sayAction', {
+      text: 'World'
+    });
+  });
+
 });
