@@ -1,6 +1,7 @@
 /*global VERSION*/
 
 import forEach from 'mout/array/forEach';
+import forOwn from 'mout/object/forOwn';
 import keys from 'mout/object/keys';
 import isFunction from 'mout/lang/isFunction';
 import isObject from 'mout/lang/isObject';
@@ -105,9 +106,21 @@ class Store {
         throw new Error('[riotx] [plugin] The plugin is not a function.');
       }
       p.apply(null, [this]);
-
     });
 
+  }
+
+  /**
+   * Reset store instance.
+   */
+  reset() {
+    this.name = null;
+    this._state = null;
+    this._actions = null;
+    this._mutations = null;
+    this._getters = null;
+    this._plugins = null;
+    this.off('*');
   }
 
   /**
@@ -320,10 +333,13 @@ class RiotX {
   }
 
   /**
-   * Reset riotx instance
+   * Reset all store instances at once.
    * @returns {RiotX} instance
    */
   reset() {
+    forOwn(this.stores || {}, store => {
+      store.reset();
+    });
     this.stores = {};
     return this;
   }

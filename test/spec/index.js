@@ -34,20 +34,39 @@ describe('client-side specs', () => {
     assert(riotx.version !== '');
   });
 
-  it('reset riotx', () => {
+  it('reset riotx', done => {
     riotx.add(new riotx.Store({
-      name: 'test',
-      state: {
-        test: true
-      },
+      name: 'A',
+      state: {},
       actions: {},
       mutations: {},
       getters: {}
     }));
-    assert(riotx.get('test').name === 'test');
-    assert(Object.keys(riotx.stores).length === 1);
+    riotx.add(new riotx.Store({
+      name: 'B',
+      state: {},
+      actions: {},
+      mutations: {},
+      getters: {}
+    }));
+
+    const storeA = riotx.get('A');
+    let isCalled = false;
+    storeA.on('evt', () => {
+      isCalled = true;
+    });
+    assert(riotx.get('A').name === 'A');
+    assert(riotx.get('B').name === 'B');
+    assert(riotx.size() === 2);
     riotx.reset();
-    assert(Object.keys(riotx.stores).length === 0);
+    assert(!riotx.get('A'));
+    assert(!riotx.get('B'));
+    assert(riotx.size() === 0);
+    storeA.trigger('evt');
+    setTimeout(() => {
+      assert(!isCalled);
+      done();
+    }, 100);
   });
 
   it('mixin', () => {
