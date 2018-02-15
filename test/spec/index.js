@@ -351,4 +351,70 @@ describe('client-side specs', () => {
     });
   });
 
+  it('execute functions with proper arguments and values.', done => {
+    riotx.reset();
+    riotx.add(new riotx.Store({
+      name: 'sample',
+      state: {
+        text: 'A'
+      },
+      actions: {
+        testAction: (context, data) => {
+          assert(!!context);
+          assert(!!context.getter);
+          assert(!!context.commit);
+          assert(!!data);
+          assert(data.text === ':)');
+          const text = context.getter('testGetter', {
+            text: ':('
+          });
+          assert(text === 'A');
+          return Promise.resolve().then(() => {
+            context.commit('testMutation', {
+              text: 'B'
+            });
+          });
+        }
+      },
+      mutations: {
+        testMutation: (context, data) => {
+          assert(!!context);
+          assert(!!context.getter);
+          const currentText = context.getter('testGetter', {
+            text: ':('
+          });
+          assert(currentText === 'A');
+          assert(!!context.state);
+          assert(data.text === 'B');
+          context.state.text = data.text;
+          return ['change'];
+        }
+      },
+      getters: {
+        testGetter: (context, data) => {
+          assert(!!context);
+          assert(!!context.state);
+          assert(context.state.text === 'A');
+          assert(!!data);
+          assert(data.text === ':(');
+          return context.state.text;
+        }
+      }
+    }));
+    const text = riotx.get('sample').getter('testGetter', {
+      text: ':('
+    });
+    assert(text === 'A');
+    riotx.get('sample').on('change', (state, store) => {
+      assert(!!state);
+      assert(!!store);
+      assert(store.name === 'sample');
+      assert(state.text === 'B');
+      done();
+    });
+    riotx.get('sample').action('testAction', {
+      text: ':)'
+    });
+  });
+
 });
