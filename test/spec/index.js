@@ -399,7 +399,19 @@ describe('client-side specs', () => {
           assert(data.text === ':(');
           return context.state.text;
         }
-      }
+      },
+      plugins: [store => {
+        store.change('riotx:mutations:after', (name, triggers, context, data) => {
+          assert(name === 'testMutation');
+          assert(triggers.length === 1);
+          assert(triggers[0] === 'change');
+          assert(!!context);
+          assert(!!context.getter);
+          assert(!!context.state);
+          assert(!!data);
+          assert(data.text === 'B');
+        });
+      }]
     }));
     const text = riotx.get('sample').getter('testGetter', {
       text: ':('
