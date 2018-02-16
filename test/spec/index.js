@@ -353,6 +353,7 @@ describe('client-side specs', () => {
 
   it('execute functions with proper arguments and values.', done => {
     riotx.reset();
+    riotx.strict(true);
     riotx.add(new riotx.Store({
       name: 'sample',
       state: {
