@@ -394,7 +394,7 @@ class RiotX {
    * @returns Riotx
    * @memberof RiotX
    */
-  loggerOutput(fn) {
+  hookLogger(fn) {
     settings.logger.output = fn;
     return this;
   }
