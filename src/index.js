@@ -8,25 +8,14 @@ import isObject from 'mout/lang/isObject';
 import Promise from 'promise-polyfill';
 import riot from 'riot';
 
-/**
- * settings for riotx
- * @type {{debug: boolean, default: string}}
- */
-const settings = {
-  debug: false,
-  default: '@',
-  changeBindName: 'riotxChange',
-  strict: false
-};
 
 /**
- * log output
+ * console output
+ *
+ * @param {String} type level
+ * @param {*} args output messages
  */
-const log = (...args) => {
-  if (!settings.debug) {
-    return;
-  }
-
+const _output = (type, ...args) => {
   args.unshift('[riotx]');
   try {
     console.log.apply(console, args); // eslint-disable-line
@@ -35,38 +24,81 @@ const log = (...args) => {
   }
 };
 
+/**
+ * settings for riotx
+ * @type {{debug: boolean, default: string}}
+ */
+const settings = {
+  debug: false,
+  default: '@',
+  changeBindName: 'riotxChange',
+  strict: false,
+  logger: {
+    output: _output,
+  }
+};
 
+/**
+ * console debug output
+ * @param {*} args
+ */
+const debug = (...args) => {
+  if (!settings.debug) {
+    return;
+  }
+  args.unshift('DEBUG');
+  settings.logger.output.apply(null, args);
+};
+
+/**
+ * console error output
+ * @param {*} message
+ */
+const error = message => {
+  const err = new Error(`[riotx] ${message}`);
+  settings.logger.output.apply(null, ['ERROR', err]);
+  throw err;
+};
+
+/**
+ * @class Store
+ */
 class Store {
+
   /**
-   * @param { name: 'Store Name', state: { default state data }, actions: { functions... } mutations: { functions... }, getters: { functions... }, plugins: { functions... } }
+   * Creates an instance of Store.
+   * @param {Object} _store { name: 'Store Name', state: { default state data }, actions: { functions... } mutations: { functions... }, getters: { functions... }, plugins: { functions... } }
+   * @memberof Store
    */
   constructor(_store) {
     /**
      * name of the store.
      * @type {String}
+     * @memberof Store
      */
     this.name = _store.name;
     if (!this.name) {
       this.name = settings.default;
-      log(`Default store name. name=${this.name}`);
+      debug(`Default store name. name=${this.name}`);
     }
 
     /**
      * a object that represents full application state.
+     * @memberof Store
      * @type {Object}
      */
     this._state = _store.state;
     Object.defineProperty(this, 'state', {
       get: () => {
         if (settings.strict) {
-          throw new Error('[riotx] [strict] Direct access get error.');
+          error('[strict] Direct access get error.');
         }
         return this._state;
       },
       set: state => {
 
         if (settings.strict) {
-          throw new Error(`[riotx] [strict] Direct access set error. ${state}`);
+          error(`[strict] Direct access set error. ${state}`);
         }
         this._state = state;
       }
@@ -74,6 +106,7 @@ class Store {
 
     /**
      * functions to mutate application state.
+     * @memberof Store
      * @type {Object}
      */
     this._actions = _store.actions;
@@ -82,18 +115,21 @@ class Store {
      * mutaions.
      * mutaion = a function which mutates the state.
      * all mutation functions take two parameters which are `state` and `obj`.
+     * @memberof Store
      * @type {Object}
      */
     this._mutations = _store.mutations;
 
     /**
      * functions to get data from states.
+     * @memberof Store
      * @type {Object}
      */
     this._getters = _store.getters;
 
     /**
      * functions to plugins.
+     * @memberof Store
      * @type {Array}
      */
     this._plugins = _store.plugins;
@@ -103,7 +139,7 @@ class Store {
     // Load plugins.
     forEach(this._plugins, p => {
       if (!isFunction(p)) {
-        throw new Error('[riotx] [plugin] The plugin is not a function.');
+        error('[plugin] The plugin is not a function.');
       }
       p.apply(null, [this]);
     });
@@ -112,6 +148,7 @@ class Store {
 
   /**
    * Reset store instance.
+   * @memberof Store
    */
   reset() {
     this.name = null;
@@ -127,19 +164,21 @@ class Store {
    * Getter state
    * @param {String} name
    * @param {Object} data
+   * @memberof Store
+   * @returns {*}
    */
   getter(name, data) {
     if (data && !isObject(data)) {
-      throw new Error(`[riotx] [getter]', 'The getter data is not object type. name=${name} data=${data}`);
+      error(`[getter]', 'The getter data is not object type. name=${name} data=${data}`);
     }
     const context = {
       state: this._state
     };
     const fn = this._getters[name];
     if (!fn || !isFunction(fn)) {
-      throw new Error(`[riotx] [getter]', 'The getter is not a function. name=${name} data=${data}`);
+      error(`[getter]', 'The getter is not a function. name=${name} data=${data}`);
     }
-    log('[getter]', name, data);
+    debug('[getter]', name, data);
     return fn.apply(null, [context, data]);
   }
 
@@ -148,10 +187,11 @@ class Store {
    * only actions are allowed to execute this function.
    * @param {String} name mutation name
    * @param {Object} data
+   * @memberof Store
    */
   commit(name, data) {
     if (data && !isObject(data)) {
-      throw new Error(`[riotx] [mutation]', 'The mutation data is not object type. name=${name} data=${data}`);
+      error(`[mutation]', 'The mutation data is not object type. name=${name} data=${data}`);
     }
     const context = {
       getter: (name, data) => {
@@ -162,12 +202,12 @@ class Store {
 
     const fn = this._mutations[name];
     if (!fn || !isFunction(fn)) {
-      throw new Error(`[riotx] [mutation]', 'The mutation is not a function. name=${name} data=${data}`);
+      error(`[mutation]', 'The mutation is not a function. name=${name} data=${data}`);
     }
 
-    log('[mutation(before)]', name, this._state, data);
+    debug('[mutation(before)]', name, this._state, data);
     const triggers = fn.apply(null, [context, data]);
-    log('[mutation(after)]', name, this._state, data);
+    debug('[mutation(after)]', name, this._state, data);
 
     // Plugins
     this.trigger('riotx:mutations:after', name, triggers, context, data);
@@ -183,11 +223,12 @@ class Store {
    * only ui components are allowed to execute this function.
    * @param {Stting} name action name
    * @param {Object} data parameter's to action
+   * @memberof Store
    * @return {Promise}
    */
   action(name, data) {
     if (data && !isObject(data)) {
-      throw new Error(`[riotx] [action]', 'The action data is not object type. name=${name} data=${data}`);
+      error(`[action]', 'The action data is not object type. name=${name} data=${data}`);
     }
     const context = {
       getter: (name, data) => {
@@ -201,10 +242,10 @@ class Store {
 
     const fn = this._actions[name];
     if (!fn || !isFunction(fn)) {
-      throw new Error(`[riotx] [action]', 'The action is not a function. name=${name} data=${data}`);
+      error(`[action] The action is not a function. name=${name} data=${data}`);
     }
 
-    log('[action]', name, data);
+    debug('[action]', name, data);
     return Promise
       .resolve()
       .then(() => fn.apply(null, [context, data]));
@@ -213,6 +254,7 @@ class Store {
   /**
    * shorthand for `store.on('event', () => {})`.
    * @param {...*} args
+   * @memberof Store
    */
   change(...args) {
     this.on(...args);
@@ -220,7 +262,15 @@ class Store {
 
 }
 
+/**
+ * @class RiotX
+ */
 class RiotX {
+
+  /**
+   * Creates an instance of RiotX.
+   * @memberof RiotX
+   */
   constructor() {
     this.version = VERSION || '';
 
@@ -265,7 +315,7 @@ class RiotX {
 
         if (settings.debug) {
           this.on('*', eventName => {
-            log('[riot.mixin]', eventName, this);
+            debug('[riot.mixin]', eventName, this);
           });
         }
 
@@ -281,11 +331,12 @@ class RiotX {
   /**
    * Add a store instance
    * @param {RiotX.Store} store instance of RiotX.Store
+   * @memberof RiotX
    * @returns {RiotX}
    */
   add(store) {
     if (this.stores[store.name]) {
-      throw new Error(`The store instance named \`${store.name}\` already exists.`);
+      error(`[store.add] The store instance named \`${store.name}\` already exists.`);
     }
 
     this.stores[store.name] = store;
@@ -295,6 +346,7 @@ class RiotX {
   /**
    * Get store instance
    * @param {String} name store name
+   * @memberof RiotX
    * @returns {RiotX.Store} store instance
    */
   get(name = settings.default) {
@@ -304,6 +356,7 @@ class RiotX {
   /**
    * Set debug flag
    * @param {boolean} flag
+   * @memberof RiotX
    * @returns {RiotX}
    */
   debug(flag) {
@@ -314,6 +367,7 @@ class RiotX {
   /**
    * Set function name to bind store change event.
    * @param {String} name
+   * @memberof RiotX
    * @returns {RiotX}
    */
   setChangeBindName(name) {
@@ -325,6 +379,7 @@ class RiotX {
    * Directly changing the state property from outside will occur an exception.
    * You can change it through “mutations”, or you can get it via “getters”.
    * @param {boolean} flag
+   * @memberof RiotX
    * @returns {RiotX}
    */
   strict(flag) {
@@ -333,7 +388,20 @@ class RiotX {
   }
 
   /**
+   *
+   *
+   * @param {Function} fn @see function _output
+   * @returns Riotx
+   * @memberof RiotX
+   */
+  loggerOutput(fn) {
+    settings.logger.output = fn;
+    return this;
+  }
+
+  /**
    * Reset all store instances at once.
+   * @memberof RiotX
    * @returns {RiotX} instance
    */
   reset() {
@@ -346,6 +414,7 @@ class RiotX {
 
   /**
    * Store's count
+   * @memberof RiotX
    * @returns {int} size
    */
   size() {
