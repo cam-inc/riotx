@@ -28,7 +28,7 @@ graph LR
 
 `nameAction` が呼び出し名、関数が実際に実行されるコードになります。
 
-**[APIS リファレンス](APIS.md) を参照してください。**
+**[API リファレンス](APIS.md) を参照してください。**
 
 ```js
 const store = new riotx.Store({
@@ -48,13 +48,13 @@ const store = new riotx.Store({
         .then(() => {
           context.commit('nameMutation', {lastName: lastName});
         });
-    },
-    mutations: {
-      nameMutation: (context, data) => {
-        context.state.name.lastName = data.lastName;
-        return ['nameChangeMutation', /** ... */];
-      }
-    },
+    }
+  },
+  mutations: {
+    nameMutation: (context, data) => {
+      context.state.name.lastName = data.lastName;
+      return ['nameChangeMutation', /** ... */];
+    }
   }
 })
 ```

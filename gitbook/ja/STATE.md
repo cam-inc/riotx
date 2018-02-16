@@ -19,13 +19,13 @@ const store = new riotx.Store({
     name: {
       lastName: 'yamada',
       firstName: 'taro'
-    },
-    mutations: {
-      nameMutation: context => {
-        context.state.name.lastName = 'tanaka';
-        return ['nameChangeMutation'];
-      }
-    },
+    }
+  },
+  mutations: {
+    nameMutation: context => {
+      context.state.name.lastName = 'tanaka';
+      return ['nameChangeMutation'];
+    }
   }
 })
 ```

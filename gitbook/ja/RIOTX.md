@@ -36,13 +36,13 @@ riotx.debug(true);
 riotx.changeBindName('change');
 ```
 
-**ex.**
+**e.g.**
 
 ```html
 <hello>
   <h1>Hello</h1>
   <script>
-    this.riotxChange('trigger', (state, store) => {
+    this.change('trigger', (state, store) => {
       // ...
     });
   </script>

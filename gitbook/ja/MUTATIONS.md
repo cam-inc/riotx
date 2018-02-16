@@ -15,7 +15,7 @@ graph LR
 
 `nameMutation` が呼び出し名、関数が実際に実行されるコードになります。
 
-**[APIS リファレンス](APIS.md) を参照してください。**Z
+**[API リファレンス](APIS.md) を参照してください。**
 
 ```js
 const store = new riotx.Store({
@@ -23,17 +23,17 @@ const store = new riotx.Store({
     name: {
       lastName: 'yamada',
       firstName: 'taro'
-    },
-    mutations: {
-      nameMutation: (context, data) => { // <--
-        context.state.name.lastName = data.lastName;
-        return ['nameChangeMutation', /** ... */];
-      }
-    },
+    }
+  }
+  mutations: {
+    nameMutation: (context, data) => { // <--
+      context.state.name.lastName = data.lastName;
+      return ['nameChangeMutation', /** ... */];
+    }
   }
 })
 ```
 
 ## トリガーとは
 
-[ステート](STATE.md) - 変更を監視して取得 を参照ください。
+[ステート - 変更を監視して取得](STATE.md)を参照ください。

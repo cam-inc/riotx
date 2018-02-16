@@ -102,7 +102,7 @@ const store = new riotx.Store({ ...options })
 
   - Type: `String`
   - Default: `@`
-  - Description: [ステート](STATE.md)名 を指定
+  - Description: [ストア](STORE.md)名 を指定
   複数の[ステート](STATE.md)を１つの[ストア](STORES.md)で管理する場合に使用
 
 - **state** [詳細](STATE.md)
@@ -243,4 +243,3 @@ import riotx from 'riotx'
 
   - Type: `int`
   - Description: `riotx.stores`で管理しているすべての[ストア](STORES.md)の件数を取得
-

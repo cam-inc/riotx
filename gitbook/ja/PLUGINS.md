@@ -19,7 +19,7 @@ graph LR
   end
 ```
 
-**[APIS リファレンス](APIS.md) を参照してください。**
+**[API リファレンス](APIS.md) を参照してください。**
 
 ### store.change 関数
 
@@ -45,32 +45,31 @@ const store = new riotx.Store({
     name: {
       lastName: 'yamada',
       firstName: 'taro'
+    }
+  },
+  mutations: {
+    nameMutation: (context, data) => {
+      context.state.name.lastName = data.lastName;
+      return ['nameChangeMutation', /** ... */];
+    }
+  },
+  plugins: [ // <--
+    store => {
+      store.change('riotx:mutations:after', (name, targets, context, data) => {
+        if (name === 'nameMutation' && targets.includes('nameChangeMutation')) {
+          // Direct
+          context.state.name.lastName = `Override ${context.state.lastName}`;
+          //
+          // or
+          //
+          // Mutation
+          store.mutation('nameMutation', {
+            lastName: `Override ${context.state.lastName}`;
+          })
+        }
+      });
     },
-    mutations: {
-      nameMutation: (context, data) => {
-        context.state.name.lastName = data.lastName;
-        return ['nameChangeMutation', /** ... */];
-      }
-    },
-    plugins: [ // <--
-      store => {
-        store.change('riotx:mutations:after', (name, targets, context, data) => { // eslint-disable-line no-unused-vars
-          if (name === 'nameMutation' && targets.includes('nameChangeMutation')) {
-            // Direct
-            context.state.name.lastName = `Override ${context.state.lastName}`;
-            //
-            // or
-            //
-            // Mutation
-            store.mutation('nameMutation', {
-              lastName: `Override ${context.state.lastName}`;
-            })
-          }
-        });
-      },
-    ]
-
-  }
+  ]
 })
 ```
 

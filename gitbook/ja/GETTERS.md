@@ -15,7 +15,7 @@ graph LR
 
 `fullNameGetter` が呼び出し名、関数が実際に実行されるコードになります。
 
-**[APIS リファレンス](APIS.md) を参照してください。**
+**[API リファレンス](APIS.md) を参照してください。**
 
 ```js
 
@@ -24,11 +24,11 @@ const store = new riotx.Store({
     name: {
       lastName: 'yamada',
       firstName: 'taro'
-    },
-    getters: { // <--
-      fullNameGetter: (context, data) => {
-        return `${context.state.name.lastName} ${context.state.name.firstName} ${data.suffix}`; // 'yamada taro ⭐️'
-      }
+    }
+  }
+  getters: { // <--
+    fullNameGetter: (context, data) => {
+      return `${context.state.name.lastName} ${context.state.name.firstName} ${data.suffix}`; // 'yamada taro ⭐️'
     }
   }
 })
