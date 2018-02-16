@@ -174,7 +174,7 @@ describe('client-side specs', () => {
     }
   });
 
-  it('plugins', () => {
+  it('plugins', done => {
     riotx.reset();
     riotx.strict(true);
 
@@ -217,6 +217,7 @@ describe('client-side specs', () => {
     store.change('testChangeMutation', (state, store) => {
       let res = store.getter('testGetter');
       assert.equal(res, 'Override Hello World');
+      done();
     });
     const text = 'World';
     store.action('testAction', {
@@ -264,7 +265,7 @@ describe('client-side specs', () => {
 
   });
 
-  it('Unify the arguments to Getter, Action Mutation and Plugin.', () => {
+  it('Unify the arguments to Getter, Action Mutation and Plugin.', done => {
     riotx.reset();
     riotx.strict(true);
 
@@ -344,6 +345,7 @@ describe('client-side specs', () => {
       });
       assert.equal(text, 'Override Hello World :)');
       assert(store);
+      done();
     });
 
     store.action('sayAction', {
@@ -402,6 +404,18 @@ describe('client-side specs', () => {
         }
       },
       plugins: [store => {
+        try {
+          const text = store.state.text;// eslint-disable-line no-unused-vars
+          assert.fail('direct access not allowed with strict mode on.');
+        } catch (e) {
+          assert.ok('direct access not allowed with strict mode on.');
+        }
+        try {
+          store.state.text = ':(';
+          assert.fail('direct mutation not allowed with strict mode on.');
+        } catch (e) {
+          assert.ok('direct mutation not allowed with strict mode on.');
+        }
         store.change('riotx:mutations:after', (name, triggers, context, data) => {
           assert(name === 'testMutation');
           assert(triggers.length === 1);
@@ -414,18 +428,48 @@ describe('client-side specs', () => {
         });
       }]
     }));
-    const text = riotx.get('sample').getter('testGetter', {
-      text: ':('
-    });
+    const store = riotx.get('sample');
+    try {
+      const text = store.state.text;// eslint-disable-line no-unused-vars
+      assert.fail('direct access not allowed with strict mode on.');
+    } catch (e) {
+      assert.ok('direct access not allowed with strict mode on.');
+    }
+    try {
+      store.state.text = ':(';
+      assert.fail('direct mutation not allowed with strict mode on.');
+    } catch (e) {
+      assert.ok('direct mutation not allowed with strict mode on.');
+    }
+    let text;
+    try {
+      text = store.getter('testGetter', {
+        text: ':('
+      });
+    } catch (e) {
+      assert.fail('should be able to get data via getter functions.');
+    }
     assert(text === 'A');
-    riotx.get('sample').on('change', (state, store) => {
+    store.on('change', (state, store) => {
       assert(!!state);
       assert(!!store);
       assert(store.name === 'sample');
       assert(state.text === 'B');
+      try {
+        const text = store.state.text;// eslint-disable-line no-unused-vars
+        assert.fail('direct access not allowed with strict mode on.');
+      } catch (e) {
+        assert.ok('direct access not allowed with strict mode on.');
+      }
+      try {
+        store.state.text = ':(';
+        assert.fail('direct mutation not allowed with strict mode on.');
+      } catch (e) {
+        assert.ok('direct mutation not allowed with strict mode on.');
+      }
       done();
     });
-    riotx.get('sample').action('testAction', {
+    store.action('testAction', {
       text: ':)'
     });
   });
