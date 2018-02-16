@@ -43,4 +43,4 @@ test/requirejs/bower_components
 .DS_Store
 
 # GitBook
-docs/_book/
+gitbook/_book/

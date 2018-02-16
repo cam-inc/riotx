@@ -23,7 +23,8 @@
     "uglify-bundle": "uglifyjs dist/riotx+riot.js --comments --mangle -o dist/riotx+riot.min.js",
     "uglify-amd": "uglifyjs dist/amd.riotx.js --comments --mangle -o dist/amd.riotx.min.js",
     "uglify-amd-bundle": "uglifyjs dist/amd.riotx+riot.js --comments --mangle -o dist/amd.riotx+riot.min.js",
-    "docs": "cd docs && gitbook install && gitbook serve"
+    "docs": "gitbook install gitbook && gitbook serve gitbook",
+    "docs-build": "gitbook build gitbook docs"
   },
   "repository": {
     "type": "git",
