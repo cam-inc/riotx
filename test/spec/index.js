@@ -425,6 +425,18 @@ describe('client-side specs', () => {
           assert(!!context.state);
           assert(!!data);
           assert(data.text === 'B');
+          try {
+            const text = context.state.text;// eslint-disable-line no-unused-vars
+            assert.ok('plugin functions can access to state.');
+          } catch (e) {
+            assert.fail('plugin functions can access to state.');
+          }
+          try {
+            context.state.text2 = ':)';
+            assert.ok('plugin functions can mutate state.');
+          } catch (e) {
+            assert.fail('plugin functions can mutate state.');
+          }
         });
       }]
     }));
