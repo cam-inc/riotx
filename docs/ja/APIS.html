@@ -1,0 +1,802 @@
+
+<!DOCTYPE HTML>
+<html lang="ja" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>API リファレンス · Riotx</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="RELEASENOTES.html" />
+    
+    
+    <link rel="prev" href="TESTING.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="検索すると入力" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Riotx</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="INSTALLATION.html">
+            
+                <a href="INSTALLATION.html">
+            
+                    
+                    インストール
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="INTRODUCE.html">
+            
+                <a href="INTRODUCE.html">
+            
+                    
+                    Riotx 紹介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="CATEGORY.html">
+            
+                <a href="CATEGORY.html">
+            
+                    
+                    カテゴリ
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="STATE.html">
+            
+                <a href="STATE.html">
+            
+                    
+                    ステート
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="GETTERS.html">
+            
+                <a href="GETTERS.html">
+            
+                    
+                    ゲッター
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="MUTATIONS.html">
+            
+                <a href="MUTATIONS.html">
+            
+                    
+                    ミューテーション
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="ACTIONS.html">
+            
+                <a href="ACTIONS.html">
+            
+                    
+                    アクション
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="STORES.html">
+            
+                <a href="STORES.html">
+            
+                    
+                    ストア
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="RIOTX.html">
+            
+                <a href="RIOTX.html">
+            
+                    
+                    Riotx
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="PLUGINS.html">
+            
+                <a href="PLUGINS.html">
+            
+                    
+                    プラグイン
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="TESTING.html">
+            
+                <a href="TESTING.html">
+            
+                    
+                    テスト
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.7" data-path="APIS.html">
+            
+                <a href="APIS.html">
+            
+                    
+                    API リファレンス
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="RELEASENOTES.html">
+            
+                <a href="RELEASENOTES.html">
+            
+                    
+                    リリースノート
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="DEMOS.html">
+            
+                <a href="DEMOS.html">
+            
+                    
+                    デモ - サンプル
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="0_x_1_x_DOCUMENTS.html">
+            
+                <a href="0_x_1_x_DOCUMENTS.html">
+            
+                    
+                    0.x, 1.x ドキュメント
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            GitBookで公開 
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >API リファレンス</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="api-&#x30EA;&#x30D5;&#x30A1;&#x30EC;&#x30F3;&#x30B9;">API &#x30EA;&#x30D5;&#x30A1;&#x30EC;&#x30F3;&#x30B9;</h1>
+<h2 id="riotxstore">riotx.Store</h2>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> riotx <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;riotx&apos;</span>
+
+<span class="hljs-keyword">const</span> store = <span class="hljs-keyword">new</span> riotx.Store({ ...options })
+</code></pre>
+<h3 id="riotxstore-constructor">riotx.Store constructor</h3>
+<ul>
+<li><p><strong>state</strong></p>
+<ul>
+<li>Type: <code>Object</code>
+&#x30B9;&#x30C6;&#x30FC;&#x30C8;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;
+<a href="STATE.html">&#x8A73;&#x7D30;</a></li>
+</ul>
+</li>
+<li><p><strong>mutations</strong></p>
+<ul>
+<li>Type: <code>{ [String: name]: Function (context, data) return Array[String] }</code></li>
+<li>Description: <a href="STORES.html">&#x30B9;&#x30C8;&#x30A2;</a>&#x306B;<a href="MUTATIONS.html">&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;</a>&#x3092;&#x767B;&#x9332;</li>
+<li><p><a href="MUTATIONS.html">&#x8A73;&#x7D30;</a></p>
+</li>
+<li><p>Arguments</p>
+<ul>
+<li><code>context</code><ul>
+<li>Type: <code>Object</code></li>
+<li>Description: Riotx&#x304C;&#x63D0;&#x4F9B;&#x3059;&#x308B;&#x30B3;&#x30F3;&#x30C6;&#x30AD;&#x30B9;&#x30C8;&#x60C5;&#x5831;</li>
+<li><code>context.state</code><ul>
+<li>Type: <code>Object</code></li>
+<li>Description: <a href="STATE.html">&#x30B9;&#x30C6;&#x30FC;&#x30C8;</a>&#x60C5;&#x5831;</li>
+</ul>
+</li>
+<li><code>context.getter</code><ul>
+<li>Type: <code>Function</code></li>
+<li>Description: <code>store.getter</code> &#x30B7;&#x30E7;&#x30FC;&#x30C8;&#x30AB;&#x30C3;&#x30C8;
+<code>getter</code>&#x95A2;&#x6570;&#x3092;&#x3064;&#x304B;&#x3063;&#x3066;&#x3001;<a href="MUTATIONS.html">&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;</a>&#x3067;&#x5FC5;&#x8981;&#x306A;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x53D6;&#x5F97;&#x3059;&#x308B;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x308B;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>data</code><ul>
+<li>Type: <code>Object</code></li>
+<li>Description: <a href="MUTATIONS.html">&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;</a>&#x306B;&#x6E21;&#x3057;&#x305F;&#x3044;&#x30C7;&#x30FC;&#x30BF;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Return<ul>
+<li>Type: <code>Array</code></li>
+<li>Description: <a href="STATE.html">&#x30B9;&#x30C6;&#x30FC;&#x30C8;</a>&#x306E;&#x5909;&#x66F4;&#x3092;&#x901A;&#x77E5;&#x3059;&#x308B;&#x30C8;&#x30EA;&#x30AC;&#x30FC;&#x540D;&#x3092;&#x914D;&#x5217;&#x3067;&#x8FD4;&#x5374;
+&#x30C8;&#x30EA;&#x30AC;&#x30FC;&#x306F;&#x30B3;&#x30DF;&#x30C3;&#x30C8;&#x5B8C;&#x4E86;&#x5F8C;&#x306B;&#x81EA;&#x52D5;&#x3067;&#x767A;&#x706B;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>actions</strong></p>
+<ul>
+<li>Type: <code>{ [String: name]: Function (Object: context, Object: data) return Promise }</code></li>
+<li>Description: <a href="STORES.html">&#x30B9;&#x30C8;&#x30A2;</a>&#x306B;<a href="ACTIONS.html">&#x30A2;&#x30AF;&#x30B7;&#x30E7;&#x30F3;</a>&#x3092;&#x767B;&#x9332;</li>
+<li><a href="ACTIONS.html">&#x8A73;&#x7D30;</a></li>
+<li>Arguments<ul>
+<li><code>context</code><ul>
+<li>Type: <code>Object</code></li>
+<li>Description: Riotx&#x304C;&#x63D0;&#x4F9B;&#x3059;&#x308B;&#x30B3;&#x30F3;&#x30C6;&#x30AD;&#x30B9;&#x30C8;&#x60C5;&#x5831;</li>
+<li><code>context.commit</code><ul>
+<li>Type: <code>Function</code></li>
+<li>Description: <a href="MUTATIONS.html">&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;</a>&#x306B;&#x4F9D;&#x983C;</li>
+</ul>
+</li>
+<li><code>context.getter</code><ul>
+<li>Type: <code>Function</code></li>
+<li>Description: <code>store.getter</code> &#x30B7;&#x30E7;&#x30FC;&#x30C8;&#x30AB;&#x30C3;&#x30C8;
+<code>getter</code>&#x95A2;&#x6570;&#x3092;&#x3064;&#x304B;&#x3063;&#x3066;&#x3001;<a href="ACTIONS.html">&#x30A2;&#x30AF;&#x30B7;&#x30E7;&#x30F3;</a>&#x3067;&#x5FC5;&#x8981;&#x306A;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x53D6;&#x5F97;&#x3059;&#x308B;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x308B;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>data</code><ul>
+<li>Type: <code>Object</code></li>
+<li>Description: <a href="ACTIONS.html">&#x30A2;&#x30AF;&#x30B7;&#x30E7;&#x30F3;</a>&#x306B;&#x6E21;&#x3057;&#x305F;&#x3044;&#x30C7;&#x30FC;&#x30BF;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Return<ul>
+<li>Type: <code>Promise</code></li>
+<li>Description: &#x9023;&#x7D9A;&#x3057;&#x3066;&#x306E;&#x30A2;&#x30AF;&#x30B7;&#x30E7;&#x30F3;&#x64CD;&#x4F5C;&#x3084;&#x4F8B;&#x5916;&#x51E6;&#x7406;&#x306B;&#x4F7F;&#x3048;&#x308B;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>getters</strong></p>
+<ul>
+<li>Type: <code>{ [String: name]: Function (Object: context, Object: data) return * }</code></li>
+<li>Description: &#x30B9;&#x30C8;&#x30A2;&#x306B;&#x30B2;&#x30C3;&#x30BF;&#x30FC;&#x3092;&#x767B;&#x9332;</li>
+<li><a href="GETTERS.html">&#x8A73;&#x7D30;</a></li>
+<li>Arguments<ul>
+<li><code>context</code><ul>
+<li>Type: <code>Object</code></li>
+<li>Description: Riotx&#x304C;&#x63D0;&#x4F9B;&#x3059;&#x308B;&#x30B3;&#x30F3;&#x30C6;&#x30AD;&#x30B9;&#x30C8;&#x60C5;&#x5831;</li>
+<li><code>context.state</code><ul>
+<li>Type: <code>Object</code></li>
+<li>Description: <a href="STATE.html">&#x30B9;&#x30C6;&#x30FC;&#x30C8;</a>&#x60C5;&#x5831;</li>
+</ul>
+</li>
+<li><code>context.getter</code><ul>
+<li>Type: <code>Function</code></li>
+<li>Description: <code>store.getter</code> &#x30B7;&#x30E7;&#x30FC;&#x30C8;&#x30AB;&#x30C3;&#x30C8;
+<code>getter</code>&#x95A2;&#x6570;&#x3092;&#x3064;&#x304B;&#x3063;&#x3066;&#x3001;<a href="GETTERS.html">&#x30B2;&#x30C3;&#x30BF;&#x30FC;</a>&#x3067;&#x5FC5;&#x8981;&#x306A;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x53D6;&#x5F97;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>data</code><ul>
+<li>Type: <code>Object</code></li>
+<li>Description: <a href="GETTERS.html">&#x30B2;&#x30C3;&#x30BF;&#x30FC;</a>&#x306B;&#x6E21;&#x3057;&#x305F;&#x3044;&#x30C7;&#x30FC;&#x30BF;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Return<ul>
+<li>Type: <code>*</code></li>
+<li>Description: &#x30D5;&#x30A3;&#x30EB;&#x30BF;&#x30FC;&#x3057;&#x305F;&#x7D50;&#x679C;&#x3092;&#x8FD4;&#x5374;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>plugins</strong></p>
+<ul>
+<li>Type: <code>Array[Function (riotx.Store: store)]</code></li>
+<li>Description: <a href="PLUGINS.html">&#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;</a>&#x95A2;&#x6570;&#x306E;&#x914D;&#x5217;&#x306F;&#x3001;<a href="STORES.html">&#x30B9;&#x30C8;&#x30A2;</a>&#x751F;&#x6210;&#x6642;&#x306B;&#x9069;&#x7528;</li>
+<li><a href="PLUGINS.html">&#x8A73;&#x7D30;</a></li>
+<li>Arguments<ul>
+<li><code>store</code></li>
+<li>Type: <code>riotx.Store</code></li>
+<li>Description: <a href="STORES.html">&#x30B9;&#x30C8;&#x30A2;</a>&#x60C5;&#x5831;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="riotxstore-properties">riotx.Store properties</h3>
+<ul>
+<li><p><strong>name</strong> <a href="STORES.html">&#x8A73;&#x7D30;</a></p>
+<ul>
+<li>Type: <code>String</code></li>
+<li>Default: <code>@</code></li>
+<li>Description: <a href="STATE.html">&#x30B9;&#x30C6;&#x30FC;&#x30C8;</a>&#x540D; &#x3092;&#x6307;&#x5B9A;
+&#x8907;&#x6570;&#x306E;<a href="STATE.html">&#x30B9;&#x30C6;&#x30FC;&#x30C8;</a>&#x3092;&#xFF11;&#x3064;&#x306E;<a href="STORES.html">&#x30B9;&#x30C8;&#x30A2;</a>&#x3067;&#x7BA1;&#x7406;&#x3059;&#x308B;&#x5834;&#x5408;&#x306B;&#x4F7F;&#x7528;</li>
+</ul>
+</li>
+<li><p><strong>state</strong> <a href="STATE.html">&#x8A73;&#x7D30;</a></p>
+<ul>
+<li>Type: <code>Object</code></li>
+<li>Description: <a href="STATE.html">&#x30B9;&#x30C6;&#x30FC;&#x30C8;</a>&#x60C5;&#x5831;
+<a href="RIOTX.html">&#x53B3;&#x683C;&#x30E2;&#x30FC;&#x30C9;</a>&#x3092;&#x4F7F;&#x7528;&#x3059;&#x308B;&#x3068;&#x3001;&#x64CD;&#x4F5C;&#x3059;&#x308B;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x306A;&#x308B;&#x3002;</li>
+</ul>
+</li>
+</ul>
+<h3 id="riotxstore-methods">riotx.Store methods</h3>
+<ul>
+<li><p><strong>reset</strong></p>
+<ul>
+<li>Type: <code>Function</code></li>
+<li>Description: <a href="STORES.html">&#x30B9;&#x30C8;&#x30A2;</a>&#x3092;&#x30EA;&#x30BB;&#x30C3;&#x30C8;
+&#x5185;&#x90E8;&#x306E;&#x53C2;&#x7167;&#x3092;&#x3059;&#x3079;&#x3066;&#x5207;&#x65AD;&#x3057;&#x305F;&#x308A;&#x306A;&#x3069;&#x3001;&#x30E1;&#x30E2;&#x30EA;&#x89E3;&#x653E;&#x306E;&#x624B;&#x52A9;&#x3051;&#x3092;&#x884C;&#x3046;
+<a href="RIOTX.html">&#x53B3;&#x683C;&#x30E2;&#x30FC;&#x30C9;</a>&#x3092;&#x4F7F;&#x7528;&#x3059;&#x308B;&#x3068;&#x3001;&#x64CD;&#x4F5C;&#x3059;&#x308B;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x306A;&#x304F;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</li>
+</ul>
+</li>
+<li><p><strong>getter</strong> <a href="GETTERS.html">&#x8A73;&#x7D30;</a></p>
+<ul>
+<li>Type: <code>Function (String: name, Object: data) return *</code></li>
+<li><p>Description: getter&#x3092;&#x547C;&#x3073;&#x51FA;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+</li>
+<li><p>Arguments</p>
+<ul>
+<li><code>name</code><ul>
+<li>Type: <code>String</code></li>
+<li>Description: <a href="GETTERS.html">&#x30B2;&#x30C3;&#x30BF;&#x30FC;</a>&#x540D;</li>
+</ul>
+</li>
+<li><code>data</code><ul>
+<li>Type: <code>Object</code></li>
+<li>Description: <a href="GETTERS.html">&#x30B2;&#x30C3;&#x30BF;&#x30FC;</a>&#x306B;&#x6E21;&#x3057;&#x305F;&#x3044;&#x30C7;&#x30FC;&#x30BF;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>commit</strong> <a href="ACTIONS.html">&#x8A73;&#x7D30;</a></p>
+<ul>
+<li>Type: <code>Function (String: name, Object: data) return Array[String]</code></li>
+<li>Description: <a href="MUTATIONS.html">&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;</a>&#x3092;&#x547C;&#x3073;&#x51FA;&#x3059;</li>
+<li><p><strong>&#x91CD;&#x8981;</strong> <a href="ACTIONS.html">&#x30A2;&#x30AF;&#x30B7;&#x30E7;&#x30F3;</a>&#x7D4C;&#x7531;&#x3067;&#x306E;&#x64CD;&#x4F5C;&#x304C;&#x671B;&#x307E;&#x3057;&#x3044;&#x3067;&#x3059;&#x3002;</p>
+</li>
+<li><p>Arguments</p>
+<ul>
+<li><code>name</code><ul>
+<li>Type: <code>String</code></li>
+<li>Description: <a href="MUTATIONS.html">&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;</a>&#x540D;</li>
+</ul>
+</li>
+<li><code>data</code><ul>
+<li>Type: <code>Object</code></li>
+<li>Description: <a href="MUTATIONS.html">&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;</a>&#x306B;&#x6E21;&#x3057;&#x305F;&#x3044;&#x30C7;&#x30FC;&#x30BF;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>action</strong> <a href="ACTIONS.html">&#x8A73;&#x7D30;</a></p>
+<ul>
+<li>Type: <code>Function (String: name, Object: data) return Promise</code></li>
+<li><p>Description: <a href="ACTIONS.html">&#x30A2;&#x30AF;&#x30B7;&#x30E7;&#x30F3;</a>&#x3092;&#x547C;&#x3073;&#x51FA;&#x3059;</p>
+</li>
+<li><p>Arguments</p>
+<ul>
+<li><code>name</code><ul>
+<li>Type: <code>String</code></li>
+<li>Description: <a href="MUTATIONS.html">&#x30A2;&#x30AF;&#x30B7;&#x30E7;&#x30F3;</a>&#x540D;</li>
+</ul>
+</li>
+<li><code>data</code><ul>
+<li>Type: <code>Object</code></li>
+<li>Description: <a href="MUTATIONS.html">&#x30A2;&#x30AF;&#x30B7;&#x30E7;&#x30F3;</a>&#x306B;&#x6E21;&#x3057;&#x305F;&#x3044;&#x30C7;&#x30FC;&#x30BF;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>change</strong> <a href="STATE.html">&#x8A73;&#x7D30;</a></p>
+<ul>
+<li>Type: <code>String: name, Function (state, store)</code></li>
+<li><p>Description: <a href="STATE.html">&#x30B9;&#x30C6;&#x30FC;&#x30C8;</a>&#x306E;&#x5909;&#x66F4;&#x76E3;&#x8996;&#x3092;&#x884C;&#x3046;</p>
+</li>
+<li><p>Arguments</p>
+<ul>
+<li><code>name</code><ul>
+<li>Type: <code>String</code></li>
+<li>Description: &#x30C8;&#x30EA;&#x30AC;&#x30FC;&#x540D; <a href="STATE.html">&#x30B9;&#x30C6;&#x30FC;&#x30C8;</a> - &#x5909;&#x66F4;&#x3092;&#x76E3;&#x8996;&#x3057;&#x3066;&#x53D6;&#x5F97; &#x3092;&#x53C2;&#x7167;</li>
+</ul>
+</li>
+<li><code>Function</code><ul>
+<li>Type: <code>Function</code></li>
+<li>Description: &#x6307;&#x5B9A;&#x3057;&#x305F;&#x30C8;&#x30EA;&#x30AC;&#x30FC;&#x304C;&#x767A;&#x706B;&#x3057;&#x305F;&#x969B;&#x306B;&#x547C;&#x3070;&#x308C;&#x308B;</li>
+<li><code>state</code><ul>
+<li>Type: <code>Object</code></li>
+<li>Description: <a href="STATE.html">&#x30B9;&#x30C6;&#x30FC;&#x30C8;</a>&#x60C5;&#x5831;</li>
+</ul>
+</li>
+<li><code>store</code><ul>
+<li>Type: <code>riotx.Store</code></li>
+<li>Description: riotx.Store &#x60C5;&#x5831;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="riotx">riotx</h2>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> riotx <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;riotx&apos;</span>
+</code></pre>
+<h3 id="riotx-properties">riotx properties</h3>
+<ul>
+<li><p><strong>version</strong></p>
+<ul>
+<li>Type: <code>String</code></li>
+<li>Description: Riotx&#x306E;&#x30D0;&#x30FC;&#x30B8;&#x30E7;&#x30F3;&#x60C5;&#x5831;</li>
+</ul>
+</li>
+<li><p><strong>Store</strong></p>
+<ul>
+<li>Type: <code>Class</code></li>
+<li>Description: riotx.Store &#x30AF;&#x30E9;&#x30B9;</li>
+</ul>
+</li>
+<li><p><strong>stores</strong></p>
+<ul>
+<li>Type: <code>{ [String: name]: riotx.Store }</code></li>
+<li>Description: riotx&#x304C;&#x7BA1;&#x7406;&#x3057;&#x3066;&#x3044;&#x308B; <a href="STORES.html">&#x30B9;&#x30C8;&#x30A2;</a> &#x30C7;&#x30FC;&#x30BF;</li>
+</ul>
+</li>
+</ul>
+<h3 id="riotx-methods">riotx methods</h3>
+<ul>
+<li><p><strong>setChangeBindName</strong> <a href="RIOTX.html">&#x8A73;&#x7D30;</a></p>
+<ul>
+<li>Type: <code>Function (String: name)</code></li>
+<li>Default: <code>riotxChange</code></li>
+<li>Description: riot&#x30AB;&#x30B9;&#x30BF;&#x30E0;&#x30BF;&#x30B0;&#x3067;&#x306E;&#x3001;<a href="STATE.html">&#x30B9;&#x30C6;&#x30FC;&#x30C8;</a>&#x306E;&#x5909;&#x66F4;&#x76E3;&#x8996;&#x306E;&#x95A2;&#x6570;&#x540D;&#x3092;&#x8A2D;&#x5B9A;</li>
+<li>TIPS: riot&#x30AB;&#x30B9;&#x30BF;&#x30E0;&#x30BF;&#x30B0;&#x3067;&#x3001;<code>this.change</code> &#x3092;&#x62E1;&#x5F35;&#x3057;&#x3066;&#x3044;&#x306A;&#x3044;&#x5834;&#x5408;&#x306F;&#x3001;<code>change</code>&#x306B;&#x5909;&#x66F4;&#x3059;&#x308B;&#x3068;riotx.Store.change&#x3068;&#x540C;&#x3058;&#x306B;&#x306A;&#x308A;&#x5B9F;&#x88C5;&#x304C;&#x697D;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</li>
+</ul>
+</li>
+<li><p><strong>add</strong></p>
+<ul>
+<li>Type: <code>Function (riotx.Store: store)</code></li>
+<li>Description: <a href="STORES.html">&#x30B9;&#x30C8;&#x30A2;</a> &#x767B;&#x9332;
+<a href="PLUGINS.html">&#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;</a> &#x306E;&#x30ED;&#x30FC;&#x30C9;&#x306F;&#x3001;&#x3053;&#x306E;&#x30BF;&#x30A4;&#x30DF;&#x30F3;&#x30B0;&#x3067;&#x884C;&#x308F;&#x308C;&#x307E;&#x3059;&#x3002;</li>
+</ul>
+</li>
+<li><p><strong>get</strong></p>
+<ul>
+<li>Type: <code>Function (String: name) return riotx.Store</code></li>
+<li><p>Description: <a href="STORES.html">&#x30B9;&#x30C8;&#x30A2;</a> &#x53D6;&#x5F97;</p>
+</li>
+<li><p>Arguments</p>
+</li>
+<li><code>name</code><ul>
+<li>Type: <code>String</code></li>
+<li>Default: <code>@</code></li>
+<li>Description: <a href="STORES.html">&#x30B9;&#x30C8;&#x30A2;</a> &#x540D;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>debug</strong></p>
+<ul>
+<li>Type: <code>Boolean</code></li>
+<li>Default: <code>false</code></li>
+<li>Description: <code>riotx</code> &#x306E;&#x30C7;&#x30D0;&#x30C3;&#x30B0;&#x30ED;&#x30B0;&#x3092;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x51FA;&#x529B;</li>
+</ul>
+</li>
+<li><p><strong>strict</strong> <a href="RIOTX.html">&#x8A73;&#x7D30;</a> <code>Experimental</code></p>
+<ul>
+<li>Type: <code>Boolean</code></li>
+<li>Default: <code>false</code></li>
+<li>Description: &#x53B3;&#x683C;&#x30E2;&#x30FC;&#x30C9;&#x3067;&#x52D5;&#x4F5C;</li>
+</ul>
+</li>
+<li><p><strong>reset</strong></p>
+<ul>
+<li>Type: <code>Function</code></li>
+<li>Description: <code>riotx.stores</code>&#x3067;&#x7BA1;&#x7406;&#x3057;&#x3066;&#x3044;&#x308B;&#x3059;&#x3079;&#x3066;&#x306E;<a href="STORES.html">&#x30B9;&#x30C8;&#x30A2;</a>&#x3092;&#x30EA;&#x30BB;&#x30C3;&#x30C8;</li>
+</ul>
+</li>
+<li><p><strong>size</strong></p>
+<ul>
+<li>Type: <code>int</code></li>
+<li>Description: <code>riotx.stores</code>&#x3067;&#x7BA1;&#x7406;&#x3057;&#x3066;&#x3044;&#x308B;&#x3059;&#x3079;&#x3066;&#x306E;<a href="STORES.html">&#x30B9;&#x30C8;&#x30A2;</a>&#x306E;&#x4EF6;&#x6570;&#x3092;&#x53D6;&#x5F97;</li>
+</ul>
+</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="TESTING.html" class="navigation navigation-prev " aria-label="Previous page: テスト">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="RELEASENOTES.html" class="navigation navigation-next " aria-label="Next page: リリースノート">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"API リファレンス","level":"1.7","depth":1,"next":{"title":"リリースノート","level":"1.8","depth":1,"path":"RELEASENOTES.md","ref":"RELEASENOTES.md","articles":[]},"previous":{"title":"テスト","level":"1.6","depth":1,"path":"TESTING.md","ref":"TESTING.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","mermaid-gb3","codepen"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/cam-inc/riotx/"},"search":{},"codepen":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Riotx","language":"ja","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"*"},"file":{"path":"APIS.md","mtime":"2018-02-16T03:17:15.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-16T04:07:19.629Z"},"basePath":".","book":{"language":"ja"}});
+        });
+    </script>
+</div>
+
+        
+    
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-codepen/embed-codepen.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
+
+    </body>
+</html>
+

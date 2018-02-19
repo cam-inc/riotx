@@ -1,0 +1,16 @@
+{
+  "title": "Riotx",
+  "gitbook": ">3.0.0",
+  "plugins": ["github", "mermaid-gb3", "codepen"],
+  "pluginsConfig": {
+    "github": {
+      "url": "https://github.com/cam-inc/riotx/"
+    }
+  },
+  "links": {
+    "sharing": {
+      "facebook": false,
+      "twitter": false
+    }
+  }
+}
