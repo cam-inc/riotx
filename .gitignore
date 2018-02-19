@@ -41,3 +41,6 @@ jspm_packages
 
 test/requirejs/bower_components
 .DS_Store
+
+# GitBook
+gitbook/_book/

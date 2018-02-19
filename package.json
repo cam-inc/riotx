@@ -22,7 +22,9 @@
     "uglify": "uglifyjs dist/riotx.js --comments --mangle -o dist/riotx.min.js",
     "uglify-bundle": "uglifyjs dist/riotx+riot.js --comments --mangle -o dist/riotx+riot.min.js",
     "uglify-amd": "uglifyjs dist/amd.riotx.js --comments --mangle -o dist/amd.riotx.min.js",
-    "uglify-amd-bundle": "uglifyjs dist/amd.riotx+riot.js --comments --mangle -o dist/amd.riotx+riot.min.js"
+    "uglify-amd-bundle": "uglifyjs dist/amd.riotx+riot.js --comments --mangle -o dist/amd.riotx+riot.min.js",
+    "docs": "gitbook install gitbook && gitbook serve gitbook",
+    "docs-build": "gitbook build gitbook docs"
   },
   "repository": {
     "type": "git",
@@ -41,6 +43,10 @@
     "chokidar": "^1.7.0",
     "chokidar-cli": "^1.2.0",
     "eslint": "^3.19.0",
+    "gitbook-cli": "^2.3.2",
+    "gitbook-plugin-codepen": "^0.1.2",
+    "gitbook-plugin-github": "^3.0.0",
+    "gitbook-plugin-mermaid-gb3": "^2.1.0",
     "karma": "^1.7.0",
     "karma-chrome-launcher": "^2.1.1",
     "karma-coverage": "^1.1.1",
