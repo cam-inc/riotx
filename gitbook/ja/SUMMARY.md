@@ -15,5 +15,6 @@
 - [テスト](TESTING.md)
 - [API リファレンス](APIS.md)
 - [リリースノート](RELEASENOTES.md)
+- [開発者向け](DEVELOPS.md)
 - [デモ - サンプル](DEMOS.md)
 - [0.x, 1.x ドキュメント](0_x_1_x_DOCUMENTS.md)

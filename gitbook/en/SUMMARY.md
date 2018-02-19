@@ -15,6 +15,7 @@
 - [Testing](../ja/TESTING.md)
 - [API reference](../ja/APIS.md)
 - [Release notes](RELEASENOTES.md)
+- [Develop](DEVELOPS.md)
 - [0.x, 1.x documents](0_x_1_x_DOCUMENTS.md)
 
 
