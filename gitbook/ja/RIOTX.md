@@ -36,12 +36,17 @@ riotx.debug(true);
 riotx.changeBindName('change');
 ```
 
-**e.g.**
-
 ```html
 <hello>
   <h1>Hello</h1>
   <script>
+    // default
+    this.riotxChange('trigger', (state, store) => {
+      // ...
+    });
+
+    // custom
+    riotx.changeBindName('change');
     this.change('trigger', (state, store) => {
       // ...
     });
@@ -55,3 +60,18 @@ riotx.changeBindName('change');
 `default : false`
 
 > [プラグイン](PLUGINS.md) での直接変更は可能です。
+
+### logger
+
+`riotx`が出力するログ関数を上書きすることが可能
+
+既存のコードは、`src/index.js#_output`関数です。上書きを行う場合はこちらのコードを参考にしてください。
+
+> IMPORTANT : 上書きを行うとログ出力されなくなります。上書きしたコードでログ出力も実装スルのが望ましいです。
+
+```js
+riotx.logger((type, ...args) => {
+  // Override code...
+});
+```
+

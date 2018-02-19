@@ -234,6 +234,12 @@ import riotx from 'riotx'
   - Default: `false`
   - Description: 厳格モードで動作
 
+- **logger**
+
+  - Type: `Function (type, ...args)`
+  - Default: `_output`
+  - Description: ログ出力関数を上書きできます。
+
 - **reset**
 
   - Type: `Function`
