@@ -1,7 +1,7 @@
-/* riotx version 0.9.4, riot version ^3.8.1 */
+/* riotx version 2.0.0, riot version ^3.8.1 */
 define(function () { 'use strict';
 
-var VERSION = "0.9.4";
+var VERSION = "2.0.0";
 
 /**
      * Array forEach
@@ -133,97 +133,35 @@ var _dontEnums;
 
     var keys_1 = keys;
 
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
+/**
+     * Gets the "kind" of value. (e.g. "String", "Number", etc)
+     */
+    function kindOf(val) {
+        return Object.prototype.toString.call(val).slice(8, -1);
+    }
+    var kindOf_1 = kindOf;
 
-/* eslint-disable no-unused-vars */
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+/**
+     * Check if value is from a specific "kind".
+     */
+    function isKind(val, kind){
+        return kindOf_1(val) === kind;
+    }
+    var isKind_1 = isKind;
 
-function toObject(val) {
-	if (val === null || val === undefined) {
-		throw new TypeError('Object.assign cannot be called with null or undefined');
-	}
+/**
+     */
+    function isFunction(val) {
+        return isKind_1(val, 'Function');
+    }
+    var isFunction_1 = isFunction;
 
-	return Object(val);
-}
-
-function shouldUseNative() {
-	try {
-		if (!Object.assign) {
-			return false;
-		}
-
-		// Detect buggy property enumeration order in older V8 versions.
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
-		test1[5] = 'de';
-		if (Object.getOwnPropertyNames(test1)[0] === '5') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test2 = {};
-		for (var i = 0; i < 10; i++) {
-			test2['_' + String.fromCharCode(i)] = i;
-		}
-		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-			return test2[n];
-		});
-		if (order2.join('') !== '0123456789') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test3 = {};
-		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-			test3[letter] = letter;
-		});
-		if (Object.keys(Object.assign({}, test3)).join('') !==
-				'abcdefghijklmnopqrst') {
-			return false;
-		}
-
-		return true;
-	} catch (err) {
-		// We don't expect any of the above to throw, but better to be safe.
-		return false;
-	}
-}
-
-var objectAssign = shouldUseNative() ? Object.assign : function (target, source) {
-	var arguments$1 = arguments;
-
-	var from;
-	var to = toObject(target);
-	var symbols;
-
-	for (var s = 1; s < arguments.length; s++) {
-		from = Object(arguments$1[s]);
-
-		for (var key in from) {
-			if (hasOwnProperty.call(from, key)) {
-				to[key] = from[key];
-			}
-		}
-
-		if (getOwnPropertySymbols) {
-			symbols = getOwnPropertySymbols(from);
-			for (var i = 0; i < symbols.length; i++) {
-				if (propIsEnumerable.call(from, symbols[i])) {
-					to[symbols[i]] = from[symbols[i]];
-				}
-			}
-		}
-	}
-
-	return to;
-};
+/**
+     */
+    function isObject(val) {
+        return isKind_1(val, 'Object');
+    }
+    var isObject_1 = isObject;
 
 // Store setTimeout reference so promise-polyfill will be unaffected by
 // other code modifying setTimeout (like sinon.useFakeTimers())
@@ -368,6 +306,22 @@ Promise.prototype.then = function(onFulfilled, onRejected) {
 
   handle(this, new Handler(onFulfilled, onRejected, prom));
   return prom;
+};
+
+Promise.prototype['finally'] = function(callback) {
+  var constructor = this.constructor;
+  return this.then(
+    function(value) {
+      return constructor.resolve(callback()).then(function() {
+        return value;
+      });
+    },
+    function(reason) {
+      return constructor.resolve(callback()).then(function() {
+        return constructor.reject(reason);
+      });
+    }
+  );
 };
 
 Promise.all = function(arr) {
@@ -1412,7 +1366,7 @@ function isBoolAttr(value) {
  * @param   { * } value -
  * @returns { Boolean } -
  */
-function isFunction(value) {
+function isFunction$2(value) {
   return typeof value === T_FUNCTION
 }
 
@@ -1422,7 +1376,7 @@ function isFunction(value) {
  * @param   { * } value -
  * @returns { Boolean } -
  */
-function isObject(value) {
+function isObject$2(value) {
   return value && typeof value === T_OBJECT // typeof null is 'object'
 }
 
@@ -1485,8 +1439,8 @@ function isWritable(obj, key) {
 
 var check = Object.freeze({
 	isBoolAttr: isBoolAttr,
-	isFunction: isFunction,
-	isObject: isObject,
+	isFunction: isFunction$2,
+	isObject: isObject$2,
 	isUndefined: isUndefined,
 	isString: isString,
 	isBlank: isBlank,
@@ -1811,7 +1765,7 @@ function updateExpression(expr) {
   value = tmpl(expr.expr, context);
 
   var hasValue = !isBlank(value);
-  var isObj = isObject(value);
+  var isObj = isObject$2(value);
 
   // convert the style/class objects to strings
   if (isObj) {
@@ -1864,7 +1818,7 @@ function updateExpression(expr) {
 
 
   // event handler
-  if (isFunction(value)) {
+  if (isFunction$2(value)) {
     setEventHandler(attrName, value, dom, this);
   // show / hide
   } else if (isToggle) {
@@ -2147,7 +2101,7 @@ function _each(dom, parent, expr) {
 
     var items = expr.value;
     var frag = createFrag();
-    var isObject$$1 = !isArray(items) && !isString(items);
+    var isObject = !isArray(items) && !isString(items);
     var root = placeholder.parentNode;
     var tmpItems = [];
 
@@ -2156,7 +2110,7 @@ function _each(dom, parent, expr) {
     if (!root) { return }
 
     // object loop. any changes cause full redraw
-    if (isObject$$1) {
+    if (isObject) {
       hasKeys = items || false;
       items = hasKeys ?
         Object.keys(items).map(function (key) { return mkitem(expr, items[key], key); }) : [];
@@ -2166,7 +2120,7 @@ function _each(dom, parent, expr) {
 
     if (ifExpr) {
       items = items.filter(function (item, i) {
-        if (expr.key && !isObject$$1)
+        if (expr.key && !isObject)
           { return !!tmpl(ifExpr, mkitem(expr, item, i, parent)) }
 
         return !!tmpl(ifExpr, extend(Object.create(parent), item))
@@ -2522,7 +2476,7 @@ function Tag(el, opts) {
  * @returns { String } name/id of the tag just created
  */
 function tag(name, tmpl, css, attrs, fn) {
-  if (isFunction(attrs)) {
+  if (isFunction$2(attrs)) {
     fn = attrs;
 
     if (/^[\w-]+\s?=/.test(css)) {
@@ -2533,7 +2487,7 @@ function tag(name, tmpl, css, attrs, fn) {
   }
 
   if (css) {
-    if (isFunction(css))
+    if (isFunction$2(css))
       { fn = css; }
     else
       { styleManager.add(css); }
@@ -2594,7 +2548,7 @@ function mount(selector, tagName, opts) {
   // inject styles into DOM
   styleManager.inject();
 
-  if (isObject(tagName)) {
+  if (isObject$2(tagName)) {
     opts = tagName;
     tagName = 0;
   }
@@ -2654,7 +2608,7 @@ var mixins_id = 0;
  */
 function mixin(name, mix, g) {
   // Unnamed global
-  if (isObject(name)) {
+  if (isObject$2(name)) {
     mixin(("__" + (mixins_id++) + "__"), name, true);
     return
   }
@@ -2670,7 +2624,7 @@ function mixin(name, mix, g) {
   }
 
   // Setter
-  store[name] = isFunction(mix) ?
+  store[name] = isFunction$2(mix) ?
     extend(mix.prototype, store[name] || {}) && mix :
     extend(store[name] || {}, mix);
 }
@@ -2841,7 +2795,7 @@ function createTag(impl, conf, innerHTML) {
     if (
       canTrigger &&
       tag$$1.isMounted &&
-      isFunction(tag$$1.shouldUpdate) && !tag$$1.shouldUpdate(data, nextOpts)
+      isFunction$2(tag$$1.shouldUpdate) && !tag$$1.shouldUpdate(data, nextOpts)
     ) {
       return tag$$1
     }
@@ -2871,7 +2825,7 @@ function createTag(impl, conf, innerHTML) {
       mix = isString(mix) ? mixin(mix) : mix;
 
       // check if the mixin is a function
-      if (isFunction(mix)) {
+      if (isFunction$2(mix)) {
         // create the new mixin instance
         instance = new mix();
       } else { instance = mix; }
@@ -2895,7 +2849,7 @@ function createTag(impl, conf, innerHTML) {
           if (!tag$$1.hasOwnProperty(key) && hasGetterSetter) {
             Object.defineProperty(tag$$1, key, descriptor);
           } else {
-            tag$$1[key] = isFunction(instance[key]) ?
+            tag$$1[key] = isFunction$2(instance[key]) ?
               instance[key].bind(tag$$1) :
               instance[key];
           }
@@ -3390,26 +3344,14 @@ var riot$1 = extend({}, core, {
 /*global VERSION*/
 
 /**
- * settings for riotx
- * @type {{debug: boolean, default: string}}
+ * console output
+ *
+ * @param {String} type level
+ * @param {*} args output messages
  */
-var settings$2 = {
-  debug: false,
-  default: '@',
-  changeBindName: 'riotxChange',
-  strict: false
-};
-
-/**
- * log output
- */
-var log = function () {
-  var args = [], len = arguments.length;
-  while ( len-- ) args[ len ] = arguments[ len ];
-
-  if (!settings$2.debug) {
-    return;
-  }
+var _output = function (type) {
+  var args = [], len = arguments.length - 1;
+  while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
 
   args.unshift('[riotx]');
   try {
@@ -3419,36 +3361,79 @@ var log = function () {
   }
 };
 
+/**
+ * settings for riotx
+ * @type {{debug: boolean, default: string}}
+ */
+var settings$2 = {
+  debug: false,
+  default: '@',
+  changeBindName: 'riotxChange',
+  strict: false,
+  logger: {
+    output: _output,
+  }
+};
 
+/**
+ * console debug output
+ * @param {*} args
+ */
+var debug = function () {
+  var args = [], len = arguments.length;
+  while ( len-- ) args[ len ] = arguments[ len ];
+
+  if (!settings$2.debug) {
+    return;
+  }
+  args.unshift('DEBUG');
+  settings$2.logger.output.apply(null, args);
+};
+
+/**
+ * console error output
+ * @param {*} message
+ */
+var error = function (message) {
+  var err = new Error(("[riotx] " + message));
+  settings$2.logger.output.apply(null, ['ERROR', err]);
+  throw err;
+};
+
+/**
+ * @class Store
+ */
 var Store = function Store(_store) {
   var this$1 = this;
 
   /**
    * name of the store.
    * @type {String}
+   * @memberof Store
    */
   this.name = _store.name;
   if (!this.name) {
     this.name = settings$2.default;
-    log(("Default store name. name=" + (this.name)));
+    debug(("Default store name. name=" + (this.name)));
   }
 
   /**
    * a object that represents full application state.
+   * @memberof Store
    * @type {Object}
    */
-  this._state = objectAssign({}, _store.state);
+  this._state = _store.state;
   Object.defineProperty(this, 'state', {
     get: function () {
       if (settings$2.strict) {
-        throw new Error('[riotx] [strict] Direct access get error.');
+        error('[strict] Direct access get error.');
       }
       return this$1._state;
     },
     set: function (state) {
 
       if (settings$2.strict) {
-        throw new Error(("[riotx] [strict] Direct access set error. " + state));
+        error(("[strict] Direct access set error. " + state));
       }
       this$1._state = state;
     }
@@ -3456,70 +3441,113 @@ var Store = function Store(_store) {
 
   /**
    * functions to mutate application state.
+   * @memberof Store
    * @type {Object}
    */
-  this._actions = objectAssign({}, _store.actions);
+  this._actions = _store.actions;
 
   /**
    * mutaions.
    * mutaion = a function which mutates the state.
    * all mutation functions take two parameters which are `state` and `obj`.
-   * `state` will be TODO.
-   * `obj` will be TODO.
+   * @memberof Store
    * @type {Object}
    */
-  this._mutations = objectAssign({}, _store.mutations);
+  this._mutations = _store.mutations;
 
   /**
    * functions to get data from states.
+   * @memberof Store
    * @type {Object}
    */
-  this._getters = objectAssign({}, _store.getters);
+  this._getters = _store.getters;
+
+  /**
+   * functions to plugins.
+   * @memberof Store
+   * @type {Array}
+   */
+  this._plugins = _store.plugins;
 
   riot$1.observable(this);
+
+  // Load plugins.
+  forEach_1(this._plugins, function (p) {
+    if (!isFunction_1(p)) {
+      error('[plugin] The plugin is not a function.');
+    }
+    p.apply(null, [this$1]);
+  });
+
+};
+
+/**
+ * Reset store instance.
+ * @memberof Store
+ */
+Store.prototype.reset = function reset () {
+  this.name = null;
+  this._state = null;
+  this._actions = null;
+  this._mutations = null;
+  this._getters = null;
+  this._plugins = null;
+  this.off('*');
 };
 
 /**
  * Getter state
- * @param {String} name TODO
- * @param {...*} args
+ * @param {String} name
+ * @param {Object} data
+ * @memberof Store
+ * @returns {*}
  */
-Store.prototype.getter = function getter (name) {
-    var args = [], len = arguments.length - 1;
-    while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
-
-  log('[getter]', name, args);
+Store.prototype.getter = function getter (name, data) {
+  if (data && !isObject_1(data)) {
+    error(("[getter]', 'The getter data is not object type. name=" + name + " data=" + data));
+  }
   var context = {
-    state: objectAssign({}, this._state)
+    state: this._state
   };
-  return this._getters[name].apply(null, [context ].concat( args));
+  var fn = this._getters[name];
+  if (!fn || !isFunction_1(fn)) {
+    error(("[getter]', 'The getter is not a function. name=" + name + " data=" + data));
+  }
+  debug('[getter]', name, data);
+  return fn.apply(null, [context, data]);
 };
 
 /**
  * Commit mutation.
  * only actions are allowed to execute this function.
  * @param {String} name mutation name
- * @param {...*} args
+ * @param {Object} data
+ * @memberof Store
  */
-Store.prototype.commit = function commit (name) {
+Store.prototype.commit = function commit (name, data) {
     var this$1 = this;
-    var args = [], len = arguments.length - 1;
-    while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
 
-  var _state = objectAssign({}, this._state);
-  log.apply(void 0, [ '[commit(before)]', name, _state ].concat( args ));
+  if (data && !isObject_1(data)) {
+    error(("[mutation]', 'The mutation data is not object type. name=" + name + " data=" + data));
+  }
   var context = {
-    getter: function (name) {
-        var args = [], len = arguments.length - 1;
-        while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
-
-      return this$1.getter.apply(this$1, [name ].concat( args));
+    getter: function (name, data) {
+      return this$1.getter.apply(this$1, [name, data]);
     },
-    state: _state
+    state: this._state
   };
-  var triggers = this._mutations[name].apply(null, [context ].concat( args));
-  log.apply(void 0, [ '[commit(after)]', name, _state ].concat( args ));
-  objectAssign(this._state, _state);
+
+  var fn = this._mutations[name];
+  if (!fn || !isFunction_1(fn)) {
+    error(("[mutation]', 'The mutation is not a function. name=" + name + " data=" + data));
+  }
+
+  debug('[mutation(before)]', name, this._state, data);
+  var triggers = fn.apply(null, [context, data]);
+  debug('[mutation(after)]', name, this._state, data);
+
+  // Plugins
+  this.trigger('riotx:mutations:after', name, triggers, context, data);
 
   forEach_1(triggers, function (v) {
     // this.trigger(v, null, this.state, this);
@@ -3531,40 +3559,41 @@ Store.prototype.commit = function commit (name) {
  * emit action.
  * only ui components are allowed to execute this function.
  * @param {Stting} name action name
- * @param {...*} args parameter's to action
+ * @param {Object} data parameter's to action
+ * @memberof Store
  * @return {Promise}
  */
-Store.prototype.action = function action (name) {
+Store.prototype.action = function action (name, data) {
     var this$1 = this;
-    var args = [], len = arguments.length - 1;
-    while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
 
-  log('[action]', name, args);
-
+  if (data && !isObject_1(data)) {
+    error(("[action]', 'The action data is not object type. name=" + name + " data=" + data));
+  }
   var context = {
-    getter: function (name) {
-        var args = [], len = arguments.length - 1;
-        while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
-
-      return this$1.getter.apply(this$1, [name ].concat( args));
+    getter: function (name, data) {
+      return this$1.getter.apply(this$1, [name, data]);
     },
-    state: objectAssign({}, this._state),
-    commit: function () {
-        var args = [], len = arguments.length;
-        while ( len-- ) args[ len ] = arguments[ len ];
-
-      (ref = this$1).commit.apply(ref, args);
-        var ref;
+    //state: this._state,
+    commit: function (name, data) {
+      this$1.commit(name, data);
     }
   };
+
+  var fn = this._actions[name];
+  if (!fn || !isFunction_1(fn)) {
+    error(("[action] The action is not a function. name=" + name + " data=" + data));
+  }
+
+  debug('[action]', name, data);
   return Promise
     .resolve()
-    .then(function () { return this$1._actions[name].apply(null, [context ].concat( args)); });
+    .then(function () { return fn.apply(null, [context, data]); });
 };
 
 /**
  * shorthand for `store.on('event', () => {})`.
  * @param {...*} args
+ * @memberof Store
  */
 Store.prototype.change = function change () {
     var args = [], len = arguments.length;
@@ -3574,6 +3603,9 @@ Store.prototype.change = function change () {
     var ref;
 };
 
+/**
+ * @class RiotX
+ */
 var RiotX = function RiotX() {
   this.version = VERSION || '';
 
@@ -3591,7 +3623,7 @@ var RiotX = function RiotX() {
 
   // add and keep event listener for store changes.
   // through this function the event listeners will be unbinded automatically.
-  var riotxChange = function(store, evtName) {
+  var riotxChange = function (store, evtName) {
     var args = [], len = arguments.length - 2;
     while ( len-- > 0 ) args[ len ] = arguments[ len + 2 ];
 
@@ -3607,7 +3639,7 @@ var RiotX = function RiotX() {
   riot$1.mixin({
     // intendedly use `function`.
     // switch the context of `this` from `riotx` to `riot tag instance`.
-    init: function() {
+    init: function () {
       var this$1 = this;
 
       // the context of `this` will be equal to riot tag instant.
@@ -3623,7 +3655,7 @@ var RiotX = function RiotX() {
 
       if (settings$2.debug) {
         this.on('*', function (eventName) {
-          log(eventName, this$1);
+          debug('[riot.mixin]', eventName, this$1);
         });
       }
 
@@ -3639,11 +3671,12 @@ var RiotX = function RiotX() {
 /**
  * Add a store instance
  * @param {RiotX.Store} store instance of RiotX.Store
+ * @memberof RiotX
  * @returns {RiotX}
  */
 RiotX.prototype.add = function add (store) {
   if (this.stores[store.name]) {
-    throw new Error(("The store instance named `" + (store.name) + "` already exists."));
+    error(("[store.add] The store instance named `" + (store.name) + "` already exists."));
   }
 
   this.stores[store.name] = store;
@@ -3653,6 +3686,7 @@ RiotX.prototype.add = function add (store) {
 /**
  * Get store instance
  * @param {String} name store name
+ * @memberof RiotX
  * @returns {RiotX.Store} store instance
  */
 RiotX.prototype.get = function get (name) {
@@ -3663,7 +3697,8 @@ RiotX.prototype.get = function get (name) {
 
 /**
  * Set debug flag
- * @param flag
+ * @param {boolean} flag
+ * @memberof RiotX
  * @returns {RiotX}
  */
 RiotX.prototype.debug = function debug (flag) {
@@ -3674,6 +3709,7 @@ RiotX.prototype.debug = function debug (flag) {
 /**
  * Set function name to bind store change event.
  * @param {String} name
+ * @memberof RiotX
  * @returns {RiotX}
  */
 RiotX.prototype.setChangeBindName = function setChangeBindName (name) {
@@ -3681,22 +3717,46 @@ RiotX.prototype.setChangeBindName = function setChangeBindName (name) {
   return this;
 };
 
+/**
+ * Directly changing the state property from outside will occur an exception.
+ * You can change it through “mutations”, or you can get it via “getters”.
+ * @param {boolean} flag
+ * @memberof RiotX
+ * @returns {RiotX}
+ */
 RiotX.prototype.strict = function strict (flag) {
   settings$2.strict = !!flag;
   return this;
 };
 
 /**
- * Reset riotx instance
+ *
+ *
+ * @param {Function} fn @see function _output
+ * @returns Riotx
+ * @memberof RiotX
+ */
+RiotX.prototype.logger = function logger (fn) {
+  settings$2.logger.output = fn;
+  return this;
+};
+
+/**
+ * Reset all store instances at once.
+ * @memberof RiotX
  * @returns {RiotX} instance
  */
 RiotX.prototype.reset = function reset () {
+  forOwn_1(this.stores || {}, function (store) {
+    store.reset();
+  });
   this.stores = {};
   return this;
 };
 
 /**
  * Store's count
+ * @memberof RiotX
  * @returns {int} size
  */
 RiotX.prototype.size = function size () {
