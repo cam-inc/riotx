@@ -287,7 +287,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9" data-path="DEMOS.html">
+        <li class="chapter " data-level="1.9" data-path="DEVELOPS.html">
+            
+                <a href="DEVELOPS.html">
+            
+                    
+                    開発者向け
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="DEMOS.html">
             
                 <a href="DEMOS.html">
             
@@ -300,7 +313,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="0_x_1_x_DOCUMENTS.html">
+        <li class="chapter " data-level="1.11" data-path="0_x_1_x_DOCUMENTS.html">
             
                 <a href="0_x_1_x_DOCUMENTS.html">
             
@@ -504,7 +517,7 @@
 <ul>
 <li>Type: <code>String</code></li>
 <li>Default: <code>@</code></li>
-<li>Description: <a href="STATE.html">&#x30B9;&#x30C6;&#x30FC;&#x30C8;</a>&#x540D; &#x3092;&#x6307;&#x5B9A;
+<li>Description: <a href="STORE.md">&#x30B9;&#x30C8;&#x30A2;</a>&#x540D; &#x3092;&#x6307;&#x5B9A;
 &#x8907;&#x6570;&#x306E;<a href="STATE.html">&#x30B9;&#x30C6;&#x30FC;&#x30C8;</a>&#x3092;&#xFF11;&#x3064;&#x306E;<a href="STORES.html">&#x30B9;&#x30C8;&#x30A2;</a>&#x3067;&#x7BA1;&#x7406;&#x3059;&#x308B;&#x5834;&#x5408;&#x306B;&#x4F7F;&#x7528;</li>
 </ul>
 </li>
@@ -692,6 +705,13 @@
 <li>Description: &#x53B3;&#x683C;&#x30E2;&#x30FC;&#x30C9;&#x3067;&#x52D5;&#x4F5C;</li>
 </ul>
 </li>
+<li><p><strong>logger</strong></p>
+<ul>
+<li>Type: <code>Function (type, ...args)</code></li>
+<li>Default: <code>_output</code></li>
+<li>Description: &#x30ED;&#x30B0;&#x51FA;&#x529B;&#x95A2;&#x6570;&#x3092;&#x4E0A;&#x66F8;&#x304D;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</li>
+</ul>
+</li>
 <li><p><strong>reset</strong></p>
 <ul>
 <li>Type: <code>Function</code></li>
@@ -748,7 +768,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"API リファレンス","level":"1.7","depth":1,"next":{"title":"リリースノート","level":"1.8","depth":1,"path":"RELEASENOTES.md","ref":"RELEASENOTES.md","articles":[]},"previous":{"title":"テスト","level":"1.6","depth":1,"path":"TESTING.md","ref":"TESTING.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","mermaid-gb3","codepen"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/cam-inc/riotx/"},"search":{},"codepen":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Riotx","language":"ja","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"*"},"file":{"path":"APIS.md","mtime":"2018-02-16T03:17:15.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-16T04:07:19.629Z"},"basePath":".","book":{"language":"ja"}});
+            gitbook.page.hasChanged({"page":{"title":"API リファレンス","level":"1.7","depth":1,"next":{"title":"リリースノート","level":"1.8","depth":1,"path":"RELEASENOTES.md","ref":"RELEASENOTES.md","articles":[]},"previous":{"title":"テスト","level":"1.6","depth":1,"path":"TESTING.md","ref":"TESTING.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","mermaid-gb3","codepen"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/cam-inc/riotx/"},"search":{},"codepen":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Riotx","language":"ja","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"*"},"file":{"path":"APIS.md","mtime":"2018-02-19T11:13:49.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-21T07:35:11.215Z"},"basePath":".","book":{"language":"ja"}});
         });
     </script>
 </div>

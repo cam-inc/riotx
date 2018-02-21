@@ -287,7 +287,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9" data-path="DEMOS.html">
+        <li class="chapter " data-level="1.9" data-path="DEVELOPS.html">
+            
+                <a href="DEVELOPS.html">
+            
+                    
+                    開発者向け
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="DEMOS.html">
             
                 <a href="DEMOS.html">
             
@@ -300,7 +313,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="0_x_1_x_DOCUMENTS.html">
+        <li class="chapter " data-level="1.11" data-path="0_x_1_x_DOCUMENTS.html">
             
                 <a href="0_x_1_x_DOCUMENTS.html">
             
@@ -380,11 +393,17 @@ graph LR
 <p><code>default : riotxChange</code></p>
 <pre><code class="lang-js">riotx.changeBindName(<span class="hljs-string">&apos;change&apos;</span>);
 </code></pre>
-<p><strong>ex.</strong></p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">hello</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+    <span class="hljs-comment">// default</span>
     <span class="hljs-keyword">this</span>.riotxChange(<span class="hljs-string">&apos;trigger&apos;</span>, (state, store) =&gt; {
+      <span class="hljs-comment">// ...</span>
+    });
+
+    <span class="hljs-comment">// custom</span>
+    riotx.changeBindName(<span class="hljs-string">&apos;change&apos;</span>);
+    <span class="hljs-keyword">this</span>.change(<span class="hljs-string">&apos;trigger&apos;</span>, (state, store) =&gt; {
       <span class="hljs-comment">// ...</span>
     });
   </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
@@ -395,6 +414,16 @@ graph LR
 <blockquote>
 <p><a href="PLUGINS.html">&#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;</a> &#x3067;&#x306E;&#x76F4;&#x63A5;&#x5909;&#x66F4;&#x306F;&#x53EF;&#x80FD;&#x3067;&#x3059;&#x3002;</p>
 </blockquote>
+<h3 id="logger">logger</h3>
+<p><code>riotx</code>&#x304C;&#x51FA;&#x529B;&#x3059;&#x308B;&#x30ED;&#x30B0;&#x95A2;&#x6570;&#x3092;&#x4E0A;&#x66F8;&#x304D;&#x3059;&#x308B;&#x3053;&#x3068;&#x304C;&#x53EF;&#x80FD;</p>
+<p>&#x65E2;&#x5B58;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x306F;&#x3001;<code>src/index.js#_output</code>&#x95A2;&#x6570;&#x3067;&#x3059;&#x3002;&#x4E0A;&#x66F8;&#x304D;&#x3092;&#x884C;&#x3046;&#x5834;&#x5408;&#x306F;&#x3053;&#x3061;&#x3089;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x53C2;&#x8003;&#x306B;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+<blockquote>
+<p>IMPORTANT : &#x4E0A;&#x66F8;&#x304D;&#x3092;&#x884C;&#x3046;&#x3068;&#x30ED;&#x30B0;&#x51FA;&#x529B;&#x3055;&#x308C;&#x306A;&#x304F;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;&#x4E0A;&#x66F8;&#x304D;&#x3057;&#x305F;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x30ED;&#x30B0;&#x51FA;&#x529B;&#x3082;&#x5B9F;&#x88C5;&#x30B9;&#x30EB;&#x306E;&#x304C;&#x671B;&#x307E;&#x3057;&#x3044;&#x3067;&#x3059;&#x3002;</p>
+</blockquote>
+<pre><code class="lang-js">riotx.logger((type, ...args) =&gt; {
+  <span class="hljs-comment">// Override code...</span>
+});
+</code></pre>
 
                                 
                                 </section>
@@ -438,7 +467,7 @@ graph LR
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Riotx","level":"1.4.6","depth":2,"next":{"title":"プラグイン","level":"1.5","depth":1,"path":"PLUGINS.md","ref":"PLUGINS.md","articles":[]},"previous":{"title":"ストア","level":"1.4.5","depth":2,"path":"STORES.md","ref":"STORES.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","mermaid-gb3","codepen"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/cam-inc/riotx/"},"search":{},"codepen":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Riotx","language":"ja","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"*"},"file":{"path":"RIOTX.md","mtime":"2018-02-15T07:41:19.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-16T04:07:19.629Z"},"basePath":".","book":{"language":"ja"}});
+            gitbook.page.hasChanged({"page":{"title":"Riotx","level":"1.4.6","depth":2,"next":{"title":"プラグイン","level":"1.5","depth":1,"path":"PLUGINS.md","ref":"PLUGINS.md","articles":[]},"previous":{"title":"ストア","level":"1.4.5","depth":2,"path":"STORES.md","ref":"STORES.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","mermaid-gb3","codepen"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/cam-inc/riotx/"},"search":{},"codepen":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Riotx","language":"ja","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"*"},"file":{"path":"RIOTX.md","mtime":"2018-02-19T11:13:49.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-21T07:35:11.215Z"},"basePath":".","book":{"language":"ja"}});
         });
     </script>
 </div>

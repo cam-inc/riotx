@@ -287,7 +287,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9" data-path="DEMOS.html">
+        <li class="chapter " data-level="1.9" data-path="DEVELOPS.html">
+            
+                <a href="DEVELOPS.html">
+            
+                    
+                    開発者向け
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="DEMOS.html">
             
                 <a href="DEMOS.html">
             
@@ -300,7 +313,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="0_x_1_x_DOCUMENTS.html">
+        <li class="chapter " data-level="1.11" data-path="0_x_1_x_DOCUMENTS.html">
             
                 <a href="0_x_1_x_DOCUMENTS.html">
             
@@ -374,13 +387,13 @@
     name: {
       lastName: <span class="hljs-string">&apos;yamada&apos;</span>,
       firstName: <span class="hljs-string">&apos;taro&apos;</span>
-    },
-    mutations: {
-      nameMutation: context =&gt; {
-        context.state.name.lastName = <span class="hljs-string">&apos;tanaka&apos;</span>;
-        <span class="hljs-keyword">return</span> [<span class="hljs-string">&apos;nameChangeMutation&apos;</span>];
-      }
-    },
+    }
+  },
+  mutations: {
+    nameMutation: context =&gt; {
+      context.state.name.lastName = <span class="hljs-string">&apos;tanaka&apos;</span>;
+      <span class="hljs-keyword">return</span> [<span class="hljs-string">&apos;nameChangeMutation&apos;</span>];
+    }
   }
 })
 </code></pre>
@@ -470,7 +483,7 @@ store.change(<span class="hljs-string">&apos;nameChangeMutation&apos;</span>, (s
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"ステート","level":"1.4.1","depth":2,"next":{"title":"ゲッター","level":"1.4.2","depth":2,"path":"GETTERS.md","ref":"GETTERS.md","articles":[]},"previous":{"title":"カテゴリ","level":"1.4","depth":1,"path":"CATEGORY.md","ref":"CATEGORY.md","articles":[{"title":"ステート","level":"1.4.1","depth":2,"path":"STATE.md","ref":"STATE.md","articles":[]},{"title":"ゲッター","level":"1.4.2","depth":2,"path":"GETTERS.md","ref":"GETTERS.md","articles":[]},{"title":"ミューテーション","level":"1.4.3","depth":2,"path":"MUTATIONS.md","ref":"MUTATIONS.md","articles":[]},{"title":"アクション","level":"1.4.4","depth":2,"path":"ACTIONS.md","ref":"ACTIONS.md","articles":[]},{"title":"ストア","level":"1.4.5","depth":2,"path":"STORES.md","ref":"STORES.md","articles":[]},{"title":"Riotx","level":"1.4.6","depth":2,"path":"RIOTX.md","ref":"RIOTX.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["github","mermaid-gb3","codepen"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/cam-inc/riotx/"},"search":{},"codepen":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Riotx","language":"ja","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"*"},"file":{"path":"STATE.md","mtime":"2018-02-15T05:29:56.435Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-16T04:07:19.629Z"},"basePath":".","book":{"language":"ja"}});
+            gitbook.page.hasChanged({"page":{"title":"ステート","level":"1.4.1","depth":2,"next":{"title":"ゲッター","level":"1.4.2","depth":2,"path":"GETTERS.md","ref":"GETTERS.md","articles":[]},"previous":{"title":"カテゴリ","level":"1.4","depth":1,"path":"CATEGORY.md","ref":"CATEGORY.md","articles":[{"title":"ステート","level":"1.4.1","depth":2,"path":"STATE.md","ref":"STATE.md","articles":[]},{"title":"ゲッター","level":"1.4.2","depth":2,"path":"GETTERS.md","ref":"GETTERS.md","articles":[]},{"title":"ミューテーション","level":"1.4.3","depth":2,"path":"MUTATIONS.md","ref":"MUTATIONS.md","articles":[]},{"title":"アクション","level":"1.4.4","depth":2,"path":"ACTIONS.md","ref":"ACTIONS.md","articles":[]},{"title":"ストア","level":"1.4.5","depth":2,"path":"STORES.md","ref":"STORES.md","articles":[]},{"title":"Riotx","level":"1.4.6","depth":2,"path":"RIOTX.md","ref":"RIOTX.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["github","mermaid-gb3","codepen"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/cam-inc/riotx/"},"search":{},"codepen":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Riotx","language":"ja","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"*"},"file":{"path":"STATE.md","mtime":"2018-02-19T11:13:49.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-21T07:35:11.215Z"},"basePath":".","book":{"language":"ja"}});
         });
     </script>
 </div>

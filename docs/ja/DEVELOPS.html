@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>カテゴリ · Riotx</title>
+        <title>開発者向け · Riotx</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -65,10 +65,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="STATE.html" />
+    <link rel="next" href="DEMOS.html" />
     
     
-    <link rel="prev" href="INTRODUCE.html" />
+    <link rel="prev" href="RELEASENOTES.html" />
     
 
     </head>
@@ -138,7 +138,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4" data-path="CATEGORY.html">
+        <li class="chapter " data-level="1.4" data-path="CATEGORY.html">
             
                 <a href="CATEGORY.html">
             
@@ -287,7 +287,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9" data-path="DEVELOPS.html">
+        <li class="chapter active" data-level="1.9" data-path="DEVELOPS.html">
             
                 <a href="DEVELOPS.html">
             
@@ -356,7 +356,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >カテゴリ</a>
+        <a href="." >開発者向け</a>
     </h1>
 </div>
 
@@ -371,16 +371,43 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="&#x30AB;&#x30C6;&#x30B4;&#x30EA;">&#x30AB;&#x30C6;&#x30B4;&#x30EA;</h1>
-<p>Riotx&#x3092;&#x30AB;&#x30C6;&#x30B4;&#x30EA;&#x3054;&#x3068;&#x306B;&#x7D39;&#x4ECB;&#x3057;&#x307E;&#x3059;&#x3002;</p>
-<ul>
-<li><a href="STATE.html">&#x30B9;&#x30C6;&#x30FC;&#x30C8;</a></li>
-<li><a href="GETTERS.html">&#x30B2;&#x30C3;&#x30BF;&#x30FC;</a></li>
-<li><a href="MUTATIONS.html">&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;</a></li>
-<li><a href="ACTIONS.html">&#x30A2;&#x30AF;&#x30B7;&#x30E7;&#x30F3;</a></li>
-<li><a href="STORES.html">&#x30B9;&#x30C8;&#x30A2;</a></li>
-</ul>
-<p>Riotx&#x3092;&#x5229;&#x7528;&#x3059;&#x308B;&#x306B;&#x306F;&#x3001;&#x4E0A;&#x8A18;&#x306E;&#x7406;&#x89E3;&#x304C;&#x5FC5;&#x8981;&#x3067;&#x3059;&#x3002;</p>
+                                <h1 id="&#x958B;&#x767A;&#x8005;&#x5411;&#x3051;">&#x958B;&#x767A;&#x8005;&#x5411;&#x3051;</h1>
+<h2 id="&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x30C6;&#x30B9;&#x30C8;-karma">&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x30C6;&#x30B9;&#x30C8; (Karma)</h2>
+<p><code>Chrome</code> on Machine. custom to <code>test/karma/karma.conf.js</code></p>
+<pre><code class="lang-sh">npm run karma
+</code></pre>
+<h3 id="&#x30C7;&#x30D0;&#x30C3;&#x30B0;&#x30E2;&#x30FC;&#x30C9;">&#x30C7;&#x30D0;&#x30C3;&#x30B0;&#x30E2;&#x30FC;&#x30C9;</h3>
+<pre><code class="lang-sh">npm run karma-dev
+</code></pre>
+<h2 id="node&#x30C6;&#x30B9;&#x30C8;-mochachai">Node&#x30C6;&#x30B9;&#x30C8; (Mocha/Chai)</h2>
+<pre><code class="lang-sh">npm run mocha
+</code></pre>
+<h3 id="&#x30C7;&#x30D0;&#x30C3;&#x30B0;&#x30E2;&#x30FC;&#x30C9;">&#x30C7;&#x30D0;&#x30C3;&#x30B0;&#x30E2;&#x30FC;&#x30C9;</h3>
+<pre><code class="lang-sh">npm run mocha-dev
+</code></pre>
+<h2 id="&#x307E;&#x3068;&#x3081;&#x3066;&#x30C6;&#x30B9;&#x30C8;-karmamocha">&#x307E;&#x3068;&#x3081;&#x3066;&#x30C6;&#x30B9;&#x30C8; (karma/mocha)</h2>
+<pre><code class="lang-sh">npm <span class="hljs-built_in">test</span>
+</code></pre>
+<h2 id="&#x30D3;&#x30EB;&#x30C9;">&#x30D3;&#x30EB;&#x30C9;</h2>
+<pre><code class="lang-sh">npm run build
+</code></pre>
+<h2 id="&#x30BD;&#x30FC;&#x30B9;&#x306E;&#x5909;&#x66F4;&#x76E3;&#x8996;&#x304B;&#x3089;&#x306E;&#x81EA;&#x52D5;&#x30D3;&#x30EB;&#x30C9;">&#x30BD;&#x30FC;&#x30B9;&#x306E;&#x5909;&#x66F4;&#x76E3;&#x8996;&#x304B;&#x3089;&#x306E;&#x81EA;&#x52D5;&#x30D3;&#x30EB;&#x30C9;</h2>
+<pre><code class="lang-sh">npm run watch
+</code></pre>
+<h2 id="eslint">ESLint</h2>
+<pre><code class="lang-sh">npm run lint
+</code></pre>
+<h2 id="&#x30C9;&#x30AD;&#x30E5;&#x30E1;&#x30F3;&#x30C8;&#x30D3;&#x30EB;&#x30C9;">&#x30C9;&#x30AD;&#x30E5;&#x30E1;&#x30F3;&#x30C8;&#x30D3;&#x30EB;&#x30C9;</h2>
+<pre><code class="lang-sh">npm run docs-build
+</code></pre>
+<h3 id="&#x30C9;&#x30AD;&#x30E5;&#x30E1;&#x30F3;&#x30C8;&#x30D3;&#x30EB;&#x30C9;--serve">&#x30C9;&#x30AD;&#x30E5;&#x30E1;&#x30F3;&#x30C8;&#x30D3;&#x30EB;&#x30C9; &amp; serve</h3>
+<pre><code class="lang-sh">npm run docs
+</code></pre>
+<blockquote>
+<p>Local Server(gitbook): <a href="http://localhost:4000" target="_blank">http://localhost:4000</a></p>
+</blockquote>
+<h2 id="&#x305D;&#x306E;&#x4ED6;">&#x305D;&#x306E;&#x4ED6;</h2>
+<p><code>package.json</code> &#x3092;&#x898B;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
 
                                 
                                 </section>
@@ -408,12 +435,12 @@
 
             
                 
-                <a href="INTRODUCE.html" class="navigation navigation-prev " aria-label="Previous page: Riotx 紹介">
+                <a href="RELEASENOTES.html" class="navigation navigation-prev " aria-label="Previous page: リリースノート">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="STATE.html" class="navigation navigation-next " aria-label="Next page: ステート">
+                <a href="DEMOS.html" class="navigation navigation-next " aria-label="Next page: デモ - サンプル">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -424,7 +451,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"カテゴリ","level":"1.4","depth":1,"next":{"title":"ステート","level":"1.4.1","depth":2,"path":"STATE.md","ref":"STATE.md","articles":[]},"previous":{"title":"Riotx 紹介","level":"1.3","depth":1,"path":"INTRODUCE.md","ref":"INTRODUCE.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","mermaid-gb3","codepen"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/cam-inc/riotx/"},"search":{},"codepen":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Riotx","language":"ja","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"*"},"file":{"path":"CATEGORY.md","mtime":"2018-02-19T11:13:49.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-21T07:35:11.215Z"},"basePath":".","book":{"language":"ja"}});
+            gitbook.page.hasChanged({"page":{"title":"開発者向け","level":"1.9","depth":1,"next":{"title":"デモ - サンプル","level":"1.10","depth":1,"path":"DEMOS.md","ref":"DEMOS.md","articles":[]},"previous":{"title":"リリースノート","level":"1.8","depth":1,"path":"RELEASENOTES.md","ref":"RELEASENOTES.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","mermaid-gb3","codepen"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/cam-inc/riotx/"},"search":{},"codepen":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Riotx","language":"ja","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"*"},"file":{"path":"DEVELOPS.md","mtime":"2018-02-19T11:13:49.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-21T07:35:11.215Z"},"basePath":".","book":{"language":"ja"}});
         });
     </script>
 </div>
