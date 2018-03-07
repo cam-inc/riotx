@@ -7,12 +7,16 @@
 A Simplistic Central Event Controller / Dispatcher For RiotJS, Inspired By [vuex](https://github.com/vuejs/vuex) Architecture Pattern.
 Riotx is a state management pattern + library for riot.js applications.
 
+
+[![GitHub license](https://img.shields.io/github/license/cam-inc/riotx.svg)](https://github.com/cam-inc/riotx/blob/develop/LICENSE)
+
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 [![Read the Docs](https://img.shields.io/readthedocs/pip.svg)](https://cam-inc.github.io/riotx/)
 [![GitHub release](https://img.shields.io/github/release/cam-inc/riotx.svg)]()
 [![GitHub last commit](https://img.shields.io/github/last-commit/cam-inc/riotx.svg)]()
 
 [![NPM](https://nodei.co/npm/riotx.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/riotx/)
+
 
 ## 🔎 Official Website(📙 Documentation, Quick Start, Demo Site)
 
