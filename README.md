@@ -14,6 +14,7 @@ Riotx is a state management pattern + library for riot.js applications.
 [![Read the Docs](https://img.shields.io/readthedocs/pip.svg)](https://cam-inc.github.io/riotx/)
 [![GitHub release](https://img.shields.io/github/release/cam-inc/riotx.svg)]()
 [![GitHub last commit](https://img.shields.io/github/last-commit/cam-inc/riotx.svg)]()
+![Travis CI](https://img.shields.io/travis/cam-inc/riotx/develop.svg)
 
 [![NPM](https://nodei.co/npm/riotx.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/riotx/)
 
