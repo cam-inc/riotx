@@ -687,14 +687,16 @@ var RiotX = function RiotX() {
 
   // add and keep event listener for store changes.
   // through this function the event listeners will be unbinded automatically.
-  var riotxChange = function (store, evtName) {
-    var args = [], len = arguments.length - 2;
-    while ( len-- > 0 ) args[ len ] = arguments[ len + 2 ];
+  var riotxChange = function (store, evtName, handler) {
+    var args = [], len = arguments.length - 3;
+    while ( len-- > 0 ) args[ len ] = arguments[ len + 3 ];
 
     this._riotx_change_handlers.push({
       store: store,
-      evtName: evtName
+      evtName: evtName,
+      handler: handler
     });
+    args.unshift(handler);
     args.unshift(evtName);
     store.change.apply(store, args);
   };
@@ -710,7 +712,7 @@ var RiotX = function RiotX() {
       this.on('unmount', function () {
         this$1.off('*');
         forEach_1(this$1._riotx_change_handlers, function (obj) {
-          obj.store.off(obj.evtName);
+          obj.store.off(obj.evtName, obj.handler);
         });
         delete this$1.riotx;
         delete this$1._riotx_change_handlers;
