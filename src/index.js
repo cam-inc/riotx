@@ -321,12 +321,13 @@ class RiotX {
           });
         }
 
+        this._riotx_change_handlers = [];
+
         // let users set the name.
         this[settings.changeBindName] = riotxChange;
       },
       // give each riot instance the ability to access the globally defined singleton RiotX instance.
-      riotx: this,
-      _riotx_change_handlers: []
+      riotx: this
     });
   }
 
