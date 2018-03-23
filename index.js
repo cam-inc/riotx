@@ -1,7 +1,7 @@
-/* riotx version 2.0.0 */
+/* riotx version 2.0.1 */
 'use strict';
 
-var VERSION = "2.0.0";
+var VERSION = "2.0.1";
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
@@ -36,8 +36,8 @@ var riot = _interopDefault(require('riot'));
 
      var hasOwn_1 = hasOwn;
 
-var _hasDontEnumBug;
-var _dontEnums;
+var _hasDontEnumBug,
+        _dontEnums;
 
     function checkDontEnum(){
         _dontEnums = [
@@ -408,6 +408,7 @@ Promise._unhandledRejectionFn = function _unhandledRejectionFn(err) {
 
 /*global VERSION*/
 
+
 /**
  * console output
  *
@@ -661,11 +662,11 @@ Store.prototype.action = function action (name, data) {
  * @memberof Store
  */
 Store.prototype.change = function change () {
+    var ref;
+
     var args = [], len = arguments.length;
     while ( len-- ) args[ len ] = arguments[ len ];
-
   (ref = this).on.apply(ref, args);
-    var ref;
 };
 
 /**
