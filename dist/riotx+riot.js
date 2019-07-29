@@ -1,8 +1,8 @@
-/* riotx version 2.0.2, riot version ^3.9.0 */
+/* riotx version 2.0.3, riot version ^3.9.0 */
 var riotx = (function () {
     'use strict';
 
-    var VERSION = "2.0.2";
+    var VERSION = "2.0.3";
 
     /**
          * Array forEach
