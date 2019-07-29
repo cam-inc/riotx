@@ -1,8 +1,8 @@
-/* riotx version 2.0.1, riot version ^3.9.0 */
+/* riotx version 2.0.2, riot version ^3.9.0 */
 var riotx = (function () {
     'use strict';
 
-    var VERSION = "2.0.1";
+    var VERSION = "2.0.2";
 
     /**
          * Array forEach
@@ -3587,7 +3587,7 @@ var riotx = (function () {
         state: this._state
       };
       var fn = this._getters[name];
-      if (!fn || !isFunction_1(fn)) {
+      if (!fn || typeof fn !== 'function') {
         error(("[getter]', 'The getter is not a function. name=" + name + " data=" + data));
       }
       debug('[getter]', name, data);
@@ -3615,7 +3615,7 @@ var riotx = (function () {
       };
 
       var fn = this._mutations[name];
-      if (!fn || !isFunction_1(fn)) {
+      if (!fn || typeof fn !== 'function') {
         error(("[mutation]', 'The mutation is not a function. name=" + name + " data=" + data));
       }
 
@@ -3657,7 +3657,7 @@ var riotx = (function () {
       };
 
       var fn = this._actions[name];
-      if (!fn || !isFunction_1(fn)) {
+      if (!fn || typeof fn !== 'function') {
         error(("[action] The action is not a function. name=" + name + " data=" + data));
       }
 

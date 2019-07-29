@@ -1,7 +1,7 @@
-/* riotx version 2.0.1 */
+/* riotx version 2.0.2 */
 'use strict';
 
-var VERSION = "2.0.1";
+var VERSION = "2.0.2";
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
@@ -576,7 +576,7 @@ Store.prototype.getter = function getter (name, data) {
     state: this._state
   };
   var fn = this._getters[name];
-  if (!fn || !isFunction_1(fn)) {
+  if (!fn || typeof fn !== 'function') {
     error(("[getter]', 'The getter is not a function. name=" + name + " data=" + data));
   }
   debug('[getter]', name, data);
@@ -604,7 +604,7 @@ Store.prototype.commit = function commit (name, data) {
   };
 
   var fn = this._mutations[name];
-  if (!fn || !isFunction_1(fn)) {
+  if (!fn || typeof fn !== 'function') {
     error(("[mutation]', 'The mutation is not a function. name=" + name + " data=" + data));
   }
 
@@ -646,7 +646,7 @@ Store.prototype.action = function action (name, data) {
   };
 
   var fn = this._actions[name];
-  if (!fn || !isFunction_1(fn)) {
+  if (!fn || typeof fn !== 'function') {
     error(("[action] The action is not a function. name=" + name + " data=" + data));
   }
 
