@@ -175,7 +175,7 @@ class Store {
       state: this._state
     };
     const fn = this._getters[name];
-    if (!fn || !isFunction(fn)) {
+    if (!fn || typeof fn !== 'function') {
       error(`[getter]', 'The getter is not a function. name=${name} data=${data}`);
     }
     debug('[getter]', name, data);
@@ -201,7 +201,7 @@ class Store {
     };
 
     const fn = this._mutations[name];
-    if (!fn || !isFunction(fn)) {
+    if (!fn || typeof fn !== 'function') {
       error(`[mutation]', 'The mutation is not a function. name=${name} data=${data}`);
     }
 
@@ -241,7 +241,7 @@ class Store {
     };
 
     const fn = this._actions[name];
-    if (!fn || !isFunction(fn)) {
+    if (!fn || typeof fn !== 'function') {
       error(`[action] The action is not a function. name=${name} data=${data}`);
     }
 
