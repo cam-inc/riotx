@@ -1,7 +1,7 @@
-/* riotx version 2.0.2 */
+/* riotx version 2.0.3 */
 define(['riot'], function (riot) { 'use strict';
 
-    var VERSION = "2.0.2";
+    var VERSION = "2.0.3";
 
     riot = riot && riot.hasOwnProperty('default') ? riot['default'] : riot;
 

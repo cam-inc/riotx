@@ -1,7 +1,7 @@
-/* riotx version 2.0.2 */
+/* riotx version 2.0.3 */
 'use strict';
 
-var VERSION = "2.0.2";
+var VERSION = "2.0.3";
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
